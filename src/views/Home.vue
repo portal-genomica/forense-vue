@@ -1,0 +1,41 @@
+<template>
+  <div class="wrapper">
+      <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" v-on:click="printCategories">
+          <div class="container-fluid">
+              <navbar  v-bind:user="user"></navbar>
+          </div>
+      </aside>
+      <div class="page-wrapper">
+          <div class="page-body">
+              <div class="d-flex h-100 justify-content-center align-items-center" v-if="ready">
+                 <router-view/>                            
+              </div>
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import Navbar from '@/components/Navbar.vue'
+
+export default {
+  name: 'Home',
+  data: function(){
+    return {
+      user: JSON.parse(localStorage.getItem('user')),
+      ready: true
+    }
+  },
+  mounted: async function(){
+    const response = await this.$root.checkToken()
+    
+    if(response == false){
+      this.$router.push({name: 'Login'})
+    }
+  },
+  components: {
+    Navbar
+  }
+}
+</script>
