@@ -1,32 +1,26 @@
 <template>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav pt-lg-3 d-flex">
+    <div class="collapse navbar-collapse" >
+        <ul class="navbar-nav pt-lg-3 d-flex" v-if="user">
             <li class="nav-item">
                 <div class="nav-link disabled">
                     <span class="title"><h3>{{user.name}}</h3></span>   
                 </div>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" :to="{name: 'Home'}">
+                <router-link class="nav-link" :to="{name: 'Profile'}">
                     Página Inicial
                 </router-link>
             </li>
             <div v-if="user.is_superuser">
-                <!-- <li class="nav-item">
-                    <router-link class="nav-link" :to="{name: 'UsersList'}" >
-                        Informações Usuários
-                    </router-link>
-                </li> -->
-
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/admin">
+                    <router-link class="nav-link" :to="{name: 'Admin'}">
                         Painel Administrador
                     </router-link>
                 </li>
             </div>
             <div v-if="!user.is_superuser">
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/fenotipo/" >
+                    <router-link class="nav-link" :to="{name: 'Fenotipo'}" >
                         Fenótipo
                     </router-link>
                 </li>

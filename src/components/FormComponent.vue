@@ -1,3 +1,17 @@
+<style>
+    /* Remove arrows from number input */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    input[type=number] {
+        -moz-appearance:textfield; /* Firefox */
+    }
+</style>
+
 <template>
     <div class="col-12" v-if="user != null">
         <div class="section-profile row mb-3">

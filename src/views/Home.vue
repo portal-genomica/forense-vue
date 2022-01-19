@@ -32,6 +32,8 @@ export default {
     
     if(response == false){
       this.$router.push({name: 'Login'})
+    } else {
+      this.$router.push({name: 'Profile'})
     }
   },
   components: {

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
-
+import Profile from '../views/Profile.vue'
 const routes = [
   {
     path: '/',
@@ -35,7 +35,8 @@ const routes = [
       },
       {
         path: '/perfil',
-        name: 'Profile'
+        name: 'Profile',
+        component: Profile
       },
       {
         path: '/fenotipo',

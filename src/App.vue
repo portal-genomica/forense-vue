@@ -40,7 +40,6 @@
     },
     methods: {
       getRequestHeader: function(){
-        console.log(this.token)
         return {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+ this.token.access_token
