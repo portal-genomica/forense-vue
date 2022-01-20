@@ -1,27 +1,4 @@
 <template>
-<!-- 
-    <body class="antialiased">
-        <div id="app" class="wrapper">
-            <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" v-on:click="printCategories">
-                <div class="container-fluid">
-                    <nav-bar  v-bind:user="user" v-bind:categories="categories"></nav-bar>
-                </div>
-            </aside>
-            <div class="page-wrapper">
-                <div class="page-body">
-                    <div class="d-flex h-100 justify-content-center align-items-center" v-if="ready">                          
-                        <router-view></router-view>  
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body> -->
-        
-
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link>
-  </div>
   <router-view/>
 </template>
 

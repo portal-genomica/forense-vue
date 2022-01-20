@@ -13,7 +13,7 @@
 </style>
 
 <template>
-    <div class="col-12" v-if="user != null">
+    <div class="col-12" v-if="user">
         <div class="section-profile row mb-3">
             <div class="col-8">
                  <div class="row">
@@ -23,7 +23,7 @@
                  </div>
                  <div class="row mb-3">
                     <label class="form-label">E-mail:</label>
-                    <div> <input type="text" class="form-control" name="email" v-model="user.email"> </div>
+                    <div> <input type="text" class="form-control" name="email" v-model="userForm.email"> </div>
                     
                   </div>
                  <div class="row mb-3">
@@ -41,15 +41,15 @@
                 </div>
                 <div class="row mb-3">
                     <label class="form-label">Altura:</label>
-                    <div><input type="number" class="form-control" name="height" v-model="user.height"></div>
+                    <div><input type="number" class="form-control" name="height" v-model="userForm.height"></div>
                 </div>
                 <div class="row mb-3">
                     <label class="form-label">Peso:</label>
-                    <div><input type="number" class="form-control" name="weight" v-model="user.weight"></div>
+                    <div><input type="number" class="form-control" name="weight" v-model="userForm.weight"></div>
                 </div>
                 <div class="row mb-3">
                     <label class="form-label">Tamanho do Calçado:</label>
-                    <div><input type="number" class="form-control" name="shoe-size" v-model="user.shoe_size"></div>
+                    <div><input type="number" class="form-control" name="shoe-size" v-model="userForm.shoe_size"></div>
                 </div>
             </div>
         </div>
@@ -70,27 +70,26 @@
     export default{
         name: 'FormComponent',
         props: ['user'],
+        model: {
+            prop: 'user',
+            event: 'userchange'
+        },
         data: function (){
             return {
-                formData : {
-                    'name': null,
-                    'email': null,
-                    'password': null,
-                    'sample': null,
-                    'date_of_birth': null,
-                    'is_active': false,
-                    'is_superuser': false,
-                    'sex': null,
-                    'weight': null,
-                    'height': null,
-                    'shoe_size': null,
-                    'nationality': null
-                },
                 success: null
             }
         },
+        computed:{
+            userForm:{
+                get: function(){
+                    return this.user
+                },
+                set: function(value) {
+                    this.$emit('userchange', value)
+                }
+            }
+        },
         mounted: async function(){
-
         }, 
         methods: {
             save: async function(){
