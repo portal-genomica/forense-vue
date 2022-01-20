@@ -25,7 +25,6 @@
       checkToken: async function(){
         if(this.token == null){
           let token = JSON.parse(localStorage.getItem('token'))
-          
           if(token == null) return false
      
           this.token = token
@@ -52,7 +51,8 @@
         return response.ok
       },
       getRequest: async function (relativePath){
-
+        
+        await this.checkToken()
         
         const url = this.apiUrl + relativePath.replace('./', ''); 
 
@@ -95,9 +95,10 @@
 
         return response
       },
-      getToken: async function(){
-        const tokenObj = JSON.parse(localStorage.getItem('token'));
-        console.log(tokenObj)
+      logout: function(){
+        this.token = null
+        localStorage.removeItem('token')
+        this.$router.push({name: 'Login'})
       }
     }
   }

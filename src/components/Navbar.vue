@@ -18,17 +18,22 @@
                     </router-link>
                 </li>
             </div>
-            <div v-if="!user.is_superuser">
-                <li class="nav-item">
+            <div >
+                <!-- <li class="nav-item">
                     <router-link class="nav-link" :to="{name: 'Fenotipo'}" >
                         Fenótipo
+                    </router-link>
+                </li> -->
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="{name: 'Ancestry'}">
+                        Ancestralidade
                     </router-link>
                 </li>
             </div> 
 
 
             <li class="nav-item mt-auto">
-                <a href="#" class="nav-link" onclick="session.logout()">
+                <a href="#" class="nav-link" v-on:click="logout">
                     <span class="nav-link-icon d-md-none d-lg-inline-block text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -49,10 +54,10 @@
 export default {
     name: 'Navbar',
     props : ['categories', 'user'],
-    // methods : {
-    //     setView: function(c){
-    //         this.$root.setView(c)
-    //     }   
-    // }
+    methods : {
+        logout:  function(){
+            this.$root.logout()
+        }   
+    }
 }
 </script>

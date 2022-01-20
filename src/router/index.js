@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
 import Profile from '../views/Profile.vue'
+import Ancestry from '../views/Ancestry.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
       {
         path: '/fenotipo',
         name: 'Phenotype'
+      },
+      {
+        path: '/fenotipo/ancestralidade',
+        name: 'Ancestry',
+        component: Ancestry
       },
       {
         path: '/fenotipo/:category',
