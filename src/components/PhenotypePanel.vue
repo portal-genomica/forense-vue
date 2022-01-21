@@ -12,7 +12,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body d-flex align-items-center justify-content-center" >
-                                <donut :prediction="prediction"></donut>
+                                <apexchart width="380" type="donut" :options="options" :series="series"></apexchart>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-    import Donut from '@/components/Donut.vue'
     import Tabela from '@/components/Tabela.vue'
 
     export default {
@@ -46,6 +45,11 @@
                 classe_real: null,
                 snps: [],
                 prediction: [],
+                series: [],
+                options: {
+                    colors: ["#206bc4", "#79a6dc", "#d2e1f3", "#e9ecf1", "#3889A6", "#83D5F2" ],
+                    labels: []
+                },
                 title: '',
                 description: ''
             }
@@ -55,11 +59,13 @@
 
             let response = await this.$root.getRequest(fetchUrl)
             let data = await response.json()
-
             
             this.title = data.title
             this.prediction = data.prediction
             this.classe_real = data.classe_real
+
+            this.series = this.getSeries(this.prediction)
+            this.options.labels = this.getLabels(this.prediction)
 
             this.snps = data.snps.map( d => {
                 d['url_gene'] = "https://www.genecards.org/cgi-bin/carddisp.pl?gene="+d.gene;
@@ -68,8 +74,15 @@
             })
         },
         components: {
-            Donut,
             Tabela
+        }, 
+        methods: {
+            getLabels: function(data){
+                return Object.keys(data)     
+            },
+            getSeries: function(data){
+                return Object.values(data)
+            }
         }
 
     }

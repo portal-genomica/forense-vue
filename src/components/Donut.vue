@@ -10,26 +10,32 @@
         props : ['prediction'],
         data : function(){
             return {
-                series: [44, 55, 41, 17, 15],
+                series: [],
                 options: {
                     colors: ["#206bc4", "#79a6dc", "#d2e1f3", "#e9ecf1", "#3889A6", "#83D5F2" ],
                     labels: []
                 }
             }
         },
-        mounted: async function(){
+        mounted: function(){
             let data = this.$props.prediction
-            
+
+            console.log(data)
             this.labels = this.getLabels(data)
             this.series = this.getSeries(data)
+
 
         },
         methods: {
             getLabels: function(data){
-                return Object.keys(data)                
+                if(data.length > 0)
+                    return Object.keys(data[0])
+                else return []                 
             },
             getSeries: function(data){
-                return Object.values(data)
+                if(data.length > 0)
+                    return Object.values(data[0])
+                else return []
             }
         }
     }
