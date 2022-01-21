@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
 import Profile from '../views/Profile.vue'
 import Ancestry from '../views/Ancestry.vue'
+import Phenotype from '../views/Phenotype.vue'
 
 const routes = [
   {
@@ -42,7 +43,8 @@ const routes = [
       },
       {
         path: '/fenotipo',
-        name: 'Phenotype'
+        name: 'Phenotype',
+        component: Phenotype
       },
       {
         path: '/fenotipo/ancestralidade',

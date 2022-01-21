@@ -19,11 +19,11 @@
                 </li>
             </div>
             <div >
-                <!-- <li class="nav-item">
-                    <router-link class="nav-link" :to="{name: 'Fenotipo'}" >
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="{name: 'Phenotype'}" >
                         Fenótipo
                     </router-link>
-                </li> -->
+                </li>  
                 <li class="nav-item">
                     <router-link class="nav-link" :to="{name: 'Ancestry'}">
                         Ancestralidade

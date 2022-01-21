@@ -124,7 +124,6 @@
                 .data(this.ancestry_data.slice().reverse())
                 .join('path.leaflet-interactive')
                     .on('mouseover', function(){
-                            console.log(this)
                             d3.selectAll('path')
                                 .style('fill-opacity', component.fillOpacityHover)
                                 .style('stroke-opacity', component.strokeOpacityHover)

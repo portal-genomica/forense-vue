@@ -10,7 +10,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="snp in snps">
+                    <tr v-for="snp in snps" :key="snp.snp">
                         <td><a :href="snp.url_snp" target="_blank">{{ snp.snp }}</a></td>
                         <td><a :href="snp.url_gene" target="_blank">{{ snp.gene }}</a></td>
                         <td>{{ snp.genotype }}</td>
@@ -24,6 +24,6 @@
 <script>
     export default {
         name: 'Tabela',
-        props: ["id", "targetUser", "snps"]
+        props: ["snps"]
     }
 </script>
