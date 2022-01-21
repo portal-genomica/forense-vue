@@ -19,7 +19,7 @@
         },
         computed: {
             user: function(){
-                return localStorage.getItem('user')
+                return JSON.parse(localStorage.getItem('user'))
             }
         }
     }
