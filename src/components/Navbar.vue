@@ -11,6 +11,23 @@
                     Página Inicial
                 </router-link>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="nav-link-title">
+                    Informações Fenotípicas
+                    </span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbar-base">
+                    <div class="dropdown-menu-columns">
+                        <div class="dropdown-menu-column">
+                            
+                            <router-link v-for="category in categories" :key="category.id" class="dropdown-item" :to="{name: 'Phenotype'}" >
+                                {{category.name}}
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </li>
             <div v-if="user.is_superuser">
                 <li class="nav-item">
                     <router-link class="nav-link" :to="{name: 'Admin'}">
@@ -57,7 +74,7 @@ export default {
     methods : {
         logout:  function(){
             this.$root.logout()
-        }   
+        }
     }
 }
 </script>

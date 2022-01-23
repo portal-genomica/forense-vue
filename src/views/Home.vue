@@ -2,7 +2,7 @@
   <div class="wrapper">
       <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" v-on:click="printCategories">
           <div class="container-fluid">
-              <navbar  v-bind:user="user"></navbar>
+              <navbar :categories="categories" v-bind:user="user"></navbar>
           </div>
       </aside>
       <div class="page-wrapper">
@@ -24,7 +24,8 @@ export default {
   data: function(){
     return {
       user: JSON.parse(localStorage.getItem('user')),
-      ready: true
+      ready: true,
+      categories: []
     }
   },
   mounted: async function(){
@@ -35,9 +36,20 @@ export default {
     } else {
       this.$router.push({name: 'Profile'})
     }
+
+    this.getCategories()
   },
   components: {
     Navbar
+  },
+  methods: {
+    getCategories: async function (){
+      const categoriesResponse = await this.$root.getRequest('categories/')
+      const categoriesJson = await categoriesResponse.json()
+
+      this.categories = categoriesJson.data
+
+    }
   }
 }
 </script>
