@@ -52,7 +52,7 @@
                                         <td>{{ u.name }}</td>
                                         <td>{{ u.email }}</td>
                                         <td>
-                                            <router-link :to="{path: '/users/' + u.id}">
+                                            <router-link :to="{name: 'UserView', params: {id: u.id}}">
                                                 <span>
                                                     Visualizar
                                                 </span>
@@ -72,15 +72,15 @@
                 </div>
             </div>
         </div>
-<!-- 
-        <div v-if="targetUser != null" class="modal modal-blur fade" id="user-admin-modal" tabindex="-1" aria-hidden="true">
+
+        <div class="modal modal-blur fade" id="user-admin-modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body"> 
-                        <form-user ref="formuser"></form-user>
+                        <!-- <form-user ref="formuser"></form-user> -->
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-link link-secondary" data-dismiss="modal">
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div> 
     </div>
 </template>
 
@@ -148,7 +148,7 @@
 
                 this.pushUsers(users)
                 
-                this.increaseCountUsers()
+                // this.increaseCountUsers()
                 
                 if(users.data.length == 0){
                     this.skip = this.users.length

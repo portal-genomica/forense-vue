@@ -28,6 +28,12 @@
                     },
                     colors: ["#206bc4", "#79a6dc", "#d2e1f3", "#e9ecf1", "#3889A6", "#83D5F2" ],
                     labels: [],
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(val){
+                            return Math.floor(val) + '%'
+                        },
+                    },
                 }
             }
         },

@@ -79,10 +79,12 @@
         },
         mounted: async function(){
             let fetchUrl = this.$props.url;
-
+            
             let response = await this.$root.getRequest(fetchUrl)
             let data = await response.json()
             
+            console.log(data)
+
             this.title = data.title
             this.prediction = data.prediction
             this.classe_real = data.classe_real
@@ -96,9 +98,6 @@
                 d['url_snp']  = "https://www.ncbi.nlm.nih.gov/snp/"+d.snp;
                 return d;
             })
-        },
-        updated: async function(){
-            console.log(this.$props.url)
         },
         components: {
             Tabela

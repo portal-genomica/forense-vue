@@ -72,9 +72,12 @@
             const mapRequest = await this.$root.getRequest(fetchUrl)
             const mapJson = await mapRequest.json()
 
-            if(mapJson.length) this.ancestry_data = mapJson.sort((a, b) => b.prediction - a.prediction)    
+            
+            if(this.$route.params.id) this.ancestry_data = mapJson.areas.sort((a, b) => b.prediction - a.prediction)
+            else this.ancestry_data = mapJson.sort((a, b) => b.prediction - a.prediction) 
+               
 
-            this.fillMap()
+            this.fillMap() 
         },
         methods: {
             createMap: function(){

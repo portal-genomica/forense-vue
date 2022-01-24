@@ -5,6 +5,7 @@ import Admin from '../views/Admin.vue'
 import Profile from '../views/Profile.vue'
 import Ancestry from '../views/Ancestry.vue'
 import Phenotype from '../views/Phenotype.vue'
+import User from '../views/User.vue'
 
 const routes = [
   {
@@ -20,13 +21,6 @@ const routes = [
         },
         component: Admin,
         children: [
-          {
-            path: 'usuarios/:id',
-            name: 'ListCategories',
-            meta: {
-              is_superuser: true
-            }
-          },
           {
             path: 'usuarios/:id/:categories',
             name: 'Category',
@@ -55,6 +49,14 @@ const routes = [
         path: '/fenotipo/:category',
         name: 'OwnCategory',
         component: Phenotype
+      },
+      {
+        path: '/admin/usuarios/:id',
+        name: 'UserView',
+        meta: {
+          is_superuser: true
+        },
+        component: User
       }
     ]
   },
