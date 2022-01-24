@@ -21,7 +21,7 @@
                     <div class="dropdown-menu-columns">
                         <div class="dropdown-menu-column">
                             
-                            <router-link v-for="category in categories" :key="category.id" class="dropdown-item" :to="{name: 'Phenotype'}" >
+                            <router-link v-for="category in categories" :key="category.id" class="dropdown-item" :to="{path: '/fenotipo/' + category.id}" >
                                 {{category.name}}
                             </router-link>
                         </div>

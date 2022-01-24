@@ -53,7 +53,8 @@ const routes = [
       },
       {
         path: '/fenotipo/:category',
-        name: 'OwnCategory'
+        name: 'OwnCategory',
+        component: Phenotype
       }
     ]
   },

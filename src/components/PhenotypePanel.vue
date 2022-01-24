@@ -73,6 +73,9 @@
                 return d;
             })
         },
+        updated: async function(){
+            console.log(this.$props.url)
+        },
         components: {
             Tabela
         }, 
