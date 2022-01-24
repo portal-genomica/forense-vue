@@ -1,5 +1,7 @@
 <template>
-  <router-view/>
+  <body class="antialiased">
+    <router-view/>
+  </body>
 </template>
 
 <script>

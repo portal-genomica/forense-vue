@@ -47,8 +47,31 @@
                 prediction: [],
                 series: [],
                 options: {
+                    legend: {
+                        show: true,
+                        position: 'bottom',
+                        offsetY: 12,
+                        markers: {
+                            width: 10,
+                            height: 10,
+                            radius: 100,
+                        },
+                        itemMargin: {
+                            horizontal: 8,
+                            vertical: 8
+                        },
+                    },
                     colors: ["#206bc4", "#79a6dc", "#d2e1f3", "#e9ecf1", "#3889A6", "#83D5F2" ],
-                    labels: []
+                    labels: [],
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(val){
+                            return Math.floor(val) + '%'
+                        },
+                    },
+                    tooltip: {
+                        fillSeriesColor: false
+                    }
                 },
                 title: '',
                 description: ''
@@ -65,8 +88,9 @@
             this.classe_real = data.classe_real
 
             this.series = this.getSeries(this.prediction)
-            this.options.labels = this.getLabels(this.prediction)
-
+            this.options = {
+                labels:   this.getLabels(this.prediction)
+            }
             this.snps = data.snps.map( d => {
                 d['url_gene'] = "https://www.genecards.org/cgi-bin/carddisp.pl?gene="+d.gene;
                 d['url_snp']  = "https://www.ncbi.nlm.nih.gov/snp/"+d.snp;
@@ -80,7 +104,8 @@
             Tabela
         }, 
         methods: {
-            getLabels: function(data){
+            getLabels: function(data){ 
+                console.log(data)
                 return Object.keys(data)     
             },
             getSeries: function(data){
