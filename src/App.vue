@@ -18,11 +18,20 @@
       console.log(this.authenticated)
     },
     methods: {
-      getRequestHeader: function(){
-        return {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+ this.token.access_token
+      getRequestHeader: async function(){
+        
+        let response = await this.checkToken()
+
+        if(response){
+          return {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+ this.token.access_token
+          }
+        } else {
+          return null
         }
+
+
       },
       checkToken: async function(){
         if(this.token == null){
@@ -54,8 +63,6 @@
       },
       getRequest: async function (relativePath){
         
-        await this.checkToken()
-        
         const url = this.apiUrl + relativePath.replace('./', ''); 
 
         const response = await fetch(url, {
@@ -63,7 +70,7 @@
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             //credentials: 'same-origin', // include, *same-origin, omit
-            headers: this.getRequestHeader()
+            headers: await this.getRequestHeader()
         });
 
         return response;
@@ -77,7 +84,7 @@
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             //credentials: 'same-origin', // include, *same-origin, omit
-            headers: this.getRequestHeader(),
+            headers: await this.getRequestHeader(),
             body: JSON.stringify(body) 
         });
 
@@ -91,7 +98,7 @@
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             //credentials: 'same-origin', // include, *same-origin, omit
-            headers: this.getRequestHeader(),
+            headers: await this.getRequestHeader(),
             body: JSON.stringify(body) 
         });
 

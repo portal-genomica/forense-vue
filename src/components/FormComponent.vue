@@ -13,84 +13,149 @@
 </style>
 
 <template>
-    <div class="col-12" v-if="user">
-        <div class="section-profile row mb-3">
-            <div class="col-8">
-                 <div class="row">
-                     <div class="col-10">
-                        <h2>Dados de Contato</h2>
-                     </div>
-                 </div>
-                 <div class="row mb-3">
-                    <label class="form-label">E-mail:</label>
-                    <div> <input type="text" class="form-control" name="email" v-model="userForm.email"> </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12" v-if="user">
+               <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Nome</label>
+                            <input type="text" v-model="value.name" name="name" class="form-control" placeholder="Nome">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Senha</label>
+                            <input type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha" disabled>
+                        </div>
+        
+                    </div>
                     
-                  </div>
-                 <div class="row mb-3">
-                    <label class="form-label">Telefone:</label>
-                    <div><input type="tel" class="form-control" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$" name="phone" placeholder="(99)99999-9999"></div>
-                  </div>
-            </div>
-        </div>
-        <div class="section-profile row mb-3">
-            <div class="col-8">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">E-mail</label>
+                            <input v-if="mode === EDIT_USER" type="text" v-model="value.email" name="email" class="form-control" placeholder="E-mail" disabled>
+                            <input v-if="mode === CREATE_USER" type="text" v-model="value.email" name="email" class="form-control" placeholder="E-mail">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Amostra</label>
+                            <input v-if="mode === CREATE_USER" type="text" v-model="value.sample" name="sample" class="form-control" placeholder="Ex: HC000...">
+                            <input v-if="mode === EDIT_USER" type="text" v-model="value.sample" name="sample" class="form-control" placeholder="Ex: HC000..." disabled>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-10">
-                        <h2>Dados Antropométricos</h2>
-                     </div>
+                    <div class="col-lg-6">
+        
+                        <div class="mb-3">
+                            <label class="form-label">Data de Nascimento</label>
+                            <input type="date" v-model="value.date_of_birth" name="date_of_birth" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Nacionalidade</label>
+                            <!-- <select-paises></select-paises> -->
+                        </div>    
+                    </div>
+                    
                 </div>
-                <div class="row mb-3">
-                    <label class="form-label">Altura:</label>
-                    <div><input type="number" class="form-control" name="height" v-model="userForm.height"></div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3 ">
+                            <div class="form-label">Sexo</div>
+                            <div>
+                                <label class="form-check form-check-inline">
+                                <input v-model="value.sex" name="sex" class="form-check-input" type="radio" value="Male" checked>
+                                <span class="form-check-label">Masculino</span>
+                                </label>
+                                <label class="form-check form-check-inline">
+                                <input v-model="value.sex" name="sex" class="form-check-input" value="Female" type="radio">
+                                <span class="form-check-label">Feminino</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 d-flex align-items-center">
+                        <div class="pt-2">
+                            <label class="form-check form-switch">
+                                <input class="form-check-input" v-model="value.is_superuser" name="is_superuser" type="checkbox">
+                                <span class="form-check-label strong">Super Usuário</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 d-flex align-items-center">
+                        <div class="pt-2">
+                            <label class="form-check form-switch">
+                                <input class="form-check-input" v-model="value.is_active" name="is_active" type="checkbox">
+                                <span class="form-check-label strong">Ativo</span>
+                            </label>
+                        </div>
+                    </div>
+                    
                 </div>
-                <div class="row mb-3">
-                    <label class="form-label">Peso:</label>
-                    <div><input type="number" class="form-control" name="weight" v-model="userForm.weight"></div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="mb-3">
+                            <label class="form-label">Altura</label>
+                            <input type="number" v-model="value.height" min="0" name="height" class="form-control" placeholder="Ex: 180...">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="mb-3">
+                            <label class="form-label">Peso</label>
+                            <input type="number" v-model="value.weight" name="weight" class="form-control" min="0.0" step="0.1" placeholder="Ex: 78.3...">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="mb-3">
+                            <label class="form-label">Tamanho do Calçado</label>
+                            <input type="number" v-model="value.shoe_size" name="shoe_size" min="0" class="form-control" placeholder="Ex: 41...">
+                        </div>
+                    </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="form-label">Tamanho do Calçado:</label>
-                    <div><input type="number" class="form-control" name="shoe-size" v-model="userForm.shoe_size"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-3" v-if="success != null">
-            <div v-if="success === true" class="alert alert-success mb-0" role="alert">
-                <h4 class="alert-title">Feito!</h4>
-                <div class="text-muted">As alterações foram salvas com sucesso.</div>
-            </div>
-            <div v-if="success === false" class="alert alert-danger mb-0" role="alert">
-                <h4 class="alert-title">Opa&hellip;</h4>
-                <div class="text-muted">Erro no formulário.</div>
+                            
             </div>
         </div>
     </div>
+    
 </template>
 
 <script>
     export default{
         name: 'FormComponent',
-        props: ['user'],
-        model: {
-            prop: 'user',
-            event: 'userchange'
+        props: {
+            modelValue: Object,
+            user: Object
         },
+        emits: ['update:modelValue'],
+        
         data: function (){
             return {
-                success: null
+                EDIT_USER: 0,
+                CREATE_USER: 1,
+                mode: 0,
+                success: null,
+                formData: []
             }
         },
         computed:{
-            userForm:{
-                get: function(){
-                    return this.user
+            value: {
+                get(){
+                    return this.modelValue
                 },
-                set: function(value) {
-                    this.$emit('userchange', value)
-                }
+                set(value){
+                    this.$emit('update:modelValue', value)
+                },
             }
         },
         mounted: async function(){
+            console.log(this.test)
         }, 
+        watch: {
+            user: function() {
+                this.formData = this.user
+            }
+        },
         methods: {
             save: async function(){
                 

@@ -1,18 +1,20 @@
 <template>
-  <div class="wrapper">
-      <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" v-on:click="printCategories">
-          <div class="container-fluid">
-              <navbar :categories="categories" v-bind:user="user"></navbar>
-          </div>
-      </aside>
-      <div class="page-wrapper">
-          <div class="page-body">
-              <div class="d-flex h-100 justify-content-center align-items-center" v-if="ready">
-                 <router-view/>                            
-              </div>
-          </div>
-      </div>
-  </div>
+  <body>
+    <div class="wrapper">
+        <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" v-on:click="printCategories">
+            <div class="container-fluid">
+                <navbar :categories="categories" v-bind:user="user"></navbar>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="page-body">
+                <div class="d-flex h-100 justify-content-center align-items-center" v-if="ready">
+                  <router-view/>                            
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
 </template>
 
 <script>

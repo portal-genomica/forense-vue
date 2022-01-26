@@ -13,8 +13,6 @@
 
 <script>
     import AncestryPanel from '@/components/AncestryPanel.vue'
-    import "@tabler/core/dist/css/tabler.min.css"
-    import "@tabler/core/dist/js/tabler.min.js"
 
     export default{
         name: 'Ancestry',

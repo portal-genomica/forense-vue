@@ -59,7 +59,7 @@
                                             </router-link>
                                         </td>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#user-admin-modal" v-on:click="editUser(u)">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#user" v-on:click="editUser(u)">
                                                 <span>
                                                     Editar
                                                 </span>
@@ -73,14 +73,31 @@
             </div>
         </div>
 
-        <div class="modal modal-blur fade" id="user-admin-modal" tabindex="-1" aria-hidden="true">
+
+        <div class="modal modal-blur fade" id="user" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body"> 
-                        <!-- <form-user ref="formuser"></form-user> -->
+                        <div class="col-12">
+                            <div class="row mb-2">
+                                <form-component :user="targetUser" v-model="targetUser"></form-component>
+                            </div>
+                            <div class="row">
+                                <div v-if="success === true" class="alert alert-success mb-0" role="alert">
+                                    <h4 class="alert-title">Feito!</h4>
+                                    <div class="text-muted">O usuário foi inserido no banco de dados com sucesso.</div>
+                                </div>
+                                <div v-if="success === false" class="alert alert-danger mb-0" role="alert">
+                                    <h4 class="alert-title">Opa&hellip;</h4>
+                                    <div class="text-muted">Erro no formulário.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-link link-secondary" data-dismiss="modal">
@@ -97,8 +114,14 @@
 </template>
 
 <script>
+import FormComponent from '../components/FormComponent.vue';
+
+
     export default{
         name: 'Admin',
+        components: { 
+            FormComponent 
+        },
         data: function(){
             return {   
                 users: [],
@@ -107,7 +130,9 @@
                 timeout: null,
                 allUsersFetched: false, // parametro para esconder o botão de carregar novos usuários quando não encontra mais usuarios no banco
                 rowsNumber: 10,
-                searchType: 0
+                searchType: 0,
+                targetUser: null,
+                success: null
             }
         },
         mounted: async function(){
@@ -199,6 +224,31 @@
                         } 
                     }
                 }).slice(0, Number(this.rowsNumber))
+            },
+            editUser: function(u){
+                this.success = null
+
+                this.targetUser = {
+                    ...u
+                }
+            },
+            saveEdit: async function(){
+                let request = await this.$root.patchRequest('users/update/'+this.targetUser.id, this.targetUser)
+                
+                if(request.ok){
+                    this.success = true
+                
+                // update front-end object
+                    Object.assign(this.users.filter( d => {
+                        if(d.id == this.targetUser.id){
+                        return d
+                        }
+                    })[0], this.targetUser)
+                
+                } else {
+                    this.success = false
+                }
+                
             }
         }
     }
