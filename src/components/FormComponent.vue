@@ -24,7 +24,9 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Senha</label>
-                            <input type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha" disabled>
+                            <input v-if="mode === EDIT_USER" type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha" disabled>
+                            <input v-if="mode === CREATE_USER" type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha">
+                            
                         </div>
         
                     </div>
@@ -125,15 +127,15 @@
         name: 'FormComponent',
         props: {
             modelValue: Object,
-            user: Object
+            user: Object,
+            mode: Boolean
         },
         emits: ['update:modelValue'],
         
         data: function (){
             return {
-                EDIT_USER: 0,
-                CREATE_USER: 1,
-                mode: 0,
+                EDIT_USER: false,
+                CREATE_USER: true,
                 success: null,
                 formData: []
             }

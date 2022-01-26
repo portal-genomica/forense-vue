@@ -1,5 +1,36 @@
 <template>
     <div class="col-10">
+        <div class="row w-100 mb-3">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Painel de Ações
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#create-user-modal" v-on:click="createUser">Criar Usuário</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>   
+                    </div>
+                
+                </div>
+            </div>
+        </div>
         <div class="row w-100">
             <div class="col-2">
                 <label class="form-label">Número de resultados:</label>
@@ -19,7 +50,7 @@
                             <line x1="21" y1="21" x2="15" y2="15" />
                         </svg>
                     </span> 
-                    <input id="pesquisa-usuario" class="form-control" type="text" v-model="query" :placeholder="placeholder()">
+                    <input id="pesquisa-usuario" class="form-control" type="text" v-model="query" :placeholder="placeholder">
                 </div>
             </div>
             <div class="col-2">
@@ -68,7 +99,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>    
+                        </div>  
                 </div>
             </div>
         </div>
@@ -83,7 +114,7 @@
                     <div class="modal-body"> 
                         <div class="col-12">
                             <div class="row mb-2">
-                                <form-component :user="targetUser" v-model="targetUser"></form-component>
+                                <form-component :mode="false" :user="targetUser" v-model="targetUser"></form-component>
                             </div>
                             <div class="row">
                                 <div v-if="success === true" class="alert alert-success mb-0" role="alert">
@@ -104,6 +135,43 @@
                             Cancel
                         </a>
                         <button class="btn btn-primary ms-auto" v-on:click="saveEdit">
+                            Salvar
+                        </button> 
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="modal modal-blur fade" id="create-user-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body"> 
+                        <div class="col-12">
+                            <div class="row mb-2">
+                                <form-component :mode="true" :user="targetUser" v-model="targetUser"></form-component>
+                            </div>
+                            <div class="row">
+                                <div v-if="success === true" class="alert alert-success mb-0" role="alert">
+                                    <h4 class="alert-title">Feito!</h4>
+                                    <div class="text-muted">O usuário foi inserido no banco de dados com sucesso.</div>
+                                </div>
+                                <div v-if="success === false" class="alert alert-danger mb-0" role="alert">
+                                    <h4 class="alert-title">Opa&hellip;</h4>
+                                    <div class="text-muted">Erro no formulário.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-link link-secondary" data-dismiss="modal">
+                            Cancel
+                        </a>
+                        <button class="btn btn-primary ms-auto" v-on:click="saveUser">
                             Salvar
                         </button> 
                     </div>
@@ -162,6 +230,13 @@ import FormComponent from '../components/FormComponent.vue';
                         } 
                     }
                 }).slice(0, Number(this.rowsNumber))
+            },
+            placeholder: function(){
+                if(this.searchType == 0){
+                    return "Pesquise o nome do usuário..."
+                } else {
+                    return "Pesquise o nome da amostra..."
+                }
             }
         },
         methods: {
@@ -195,13 +270,6 @@ import FormComponent from '../components/FormComponent.vue';
                     } 
                 }
             },
-            placeholder: function(){
-                if(this.searchType == 0){
-                    return "Pesquise o nome do usuário..."
-                } else {
-                    return "Pesquise o nome da amostra..."
-                }
-            },
             queryGet: function(){ 
                 if(this.query == '') return ''
                 else return '&name='+this.query   
@@ -210,26 +278,39 @@ import FormComponent from '../components/FormComponent.vue';
                 const names_array = name.split(' ')
                 return String(names_array[0][0] + names_array[names_array.length-1][0]).toUpperCase()
             },
-            filterUsers: function(){
-                let regexQuery = new RegExp(this.query.toLowerCase())
-                return this.users.filter( d => {
-                    if(this.searchType == 0){    
-                        if(d.name && !d.is_superuser){
-                            return d.name.toLowerCase().match(regexQuery)
-                        } 
-                    }
-                    else{
-                        if(d.sample && !d.is_superuser){
-                            return d.sample.toLowerCase().match(regexQuery)
-                        } 
-                    }
-                }).slice(0, Number(this.rowsNumber))
-            },
             editUser: function(u){
                 this.success = null
 
                 this.targetUser = {
                     ...u
+                }
+            },
+            createUser: function(){
+                this.targetUser = {
+                    'name': null,
+                    'email': null,
+                    'password': null,
+                    'sample': null,
+                    'date_of_birth': null,
+                    'is_active': false,
+                    'is_superuser': false,
+                    'sex': null,
+                    'weight': null,
+                    'height': null,
+                    'shoe_size': null,
+                    'nationality': null
+                }
+            },
+            saveUser: async function(){
+                let request = await this.$root.patchRequest('users/', this.targetUser)
+
+                if(request.ok){
+                    this.success = true
+                    let data = await request.json()
+                    this.users.push(data)
+                    // this.cleanForm()
+                } else {
+                    this.success = false    
                 }
             },
             saveEdit: async function(){
