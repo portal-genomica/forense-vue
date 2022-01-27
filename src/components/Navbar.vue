@@ -11,6 +11,13 @@
                     Página Inicial
                 </router-link>
             </li>
+            <div v-if="user.is_superuser">
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="{name: 'Admin'}">
+                        Painel Administrador
+                    </router-link>
+                </li>
+            </div>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbar-base" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                     <span class="nav-link-title">
@@ -28,13 +35,6 @@
                     </div>
                 </div>
             </li>
-            <div v-if="user.is_superuser">
-                <li class="nav-item">
-                    <router-link class="nav-link" :to="{name: 'Admin'}">
-                        Painel Administrador
-                    </router-link>
-                </li>
-            </div>
             <div >
                 <li class="nav-item">
                     <router-link class="nav-link" :to="{name: 'Ancestry'}">

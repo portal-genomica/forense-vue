@@ -6,21 +6,19 @@
                     <li class="nav-item" v-for="(c, index) in categories" :key="c.name">
                         <a :href="'#tabs-'+c.id" :class="['nav-link', {active : index == 0}]" data-bs-toggle="tab" aria-current="true">{{c.name}}</a>
                     </li>
+                    <li class="nav-item">
+                        <a :href="'#tabs-ancestry'" class="nav-link" data-bs-toggle="tab" aria-current="true">Ancestralidade</a>
+                    </li>
                 </ul> 
                 <div class="card-body tab-content">
                     <div v-for="(c, index) in categories" :key="c.id" :class="['tab-pane', {active : index == 0}]" :id="'tabs-'+c.id">
                         <phenotype-panel  v-for="v in c.views" :key="v.id" :user="targetUser" :url="phenotypeUrl(v.id)"></phenotype-panel>
                     </div>
+
+                    <div class="tab-pane" id="tabs-ancestry" v-if="ancestryUrl">
+                        <ancestry-panel :fetchurl="ancestryUrl"></ancestry-panel>
+                    </div>
                 </div> 
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h1>Ancestralidade Gencove</h1>
-                </div>
-                <div class="card-body">
-                    <ancestry-panel :fetchurl="ancestryUrl"></ancestry-panel>
-                </div>
             </div>
         </div>
     </div>

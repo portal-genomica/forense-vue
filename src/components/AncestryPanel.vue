@@ -10,17 +10,26 @@
 <template>
     <div class="col-12" v-if="fetchurl">
         <div class="row w-100">
-            <div class="col-9">
+            <div class="col-8">
                 <div id="gencove"></div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <div class="card h-100">
                     <div class="card-body card-body-scrollable card-body-scrollable-shadow">
                         <div class="divide-y">
                             <div class="ancestry-list row" v-for="region in ancestry_data" :key="region.id" v-on:mouseout="clearRegion" v-on:mouseover="selectRegion">
                                 <div class="col-9">
-                                    <a href="#" class="badge" :style="{backgroundColor: region.color}"></a>
-                                    <span style="color: #444" class="mx-1 strong  name-region">{{region.name}}</span>
+                                    <div class="row">    
+                                            <div class="col-2">
+
+                                            <a href="#" class="badge" :style="{backgroundColor: region.color}"></a>
+                                            </div>
+                                           <div class="col-10 overflow-hidden">
+
+                                            <span style="color: #444" class="mx-1 strong  name-region">{{region.name}}</span>
+                                           </div>
+                                        
+                                    </div>
                                 </div>
                                 <div class="col text-end text-nowrap">
                                     <span class="strong text-azure" style="font-size: 0.9em">{{percent(region.prediction)}}</span>    
@@ -42,8 +51,6 @@
     import { toRaw } from "vue";
 
     import "leaflet/dist/leaflet.css"
-    import "@tabler/core/dist/css/tabler.min.css"
-    import "@tabler/core/dist/js/tabler.min.js"
 
     export default {
         name: 'AncestryPanel',

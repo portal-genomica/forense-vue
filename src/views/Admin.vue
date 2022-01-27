@@ -1,7 +1,7 @@
 <template>
     <div class="col-10">
         <div class="row w-100 mb-3">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -14,12 +14,12 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-left">Ação</th>
+                                        <th class="d-flex text-left">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-left">
+                                        <td class="d-flex text-left">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#create-user-modal" v-on:click="createUser">Criar Usuário</a>
                                         </td>
                                     </tr>

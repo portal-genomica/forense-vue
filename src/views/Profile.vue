@@ -28,10 +28,12 @@
                         <span class="avatar avatar-xl">{{initials}}</span>
                     </div>
                     <div class="col">
-                        <div class="card-body d-flex">
+                        <div class="card-body">
                             <div class="col-12">
                                 <div class="row">
-                                    <h1 class="card-title">{{user.name}}</h1>
+                                    <div class="col-md-auto">
+                                        <h1 class="card-title">{{user.name}}</h1>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-auto"> 
@@ -42,7 +44,7 @@
                                             <span class="text-azure strong">E-mail:</span>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-md-auto">
                                         <div class="row" v-if="!user.is_superuser">
                                             <span>{{user.sample}}</span>
                                         </div>
@@ -90,18 +92,24 @@
                 <div class="tab-pane card-body" id="tabs-contato">
                     <div class="col-8">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-md-auto">
+                                
                                 <h2>Dados de Contato</h2>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="form-label">E-mail:</label>
-                            <div> <input type="text" class="form-control" name="email" v-model="user.email"> </div>
+                            <div class="col-md-auto">
+                                <label class="form-label d-flex text-left">E-mail:</label>
+                                <div> <input type="text" class="form-control" name="email" v-model="user.email"> </div>
+                            </div>
                             
                         </div>
                         <div class="row mb-3">
-                            <label class="form-label">Telefone:</label>
-                            <div><input type="tel" class="form-control" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$" name="phone" placeholder="(99)99999-9999"></div>
+                            <div class="col-md-auto">
+                                <label class="form-label d-flex text-left">Telefone:</label>
+                                <div><input type="tel" class="form-control" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$" name="phone" placeholder="(99)99999-9999"></div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -109,21 +117,27 @@
                 <div class="tab-pane card-body" id="tabs-antropometrico">
                     <div class="col-8">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-md-auto">
                                 <h2>Dados Antropométricos</h2>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="form-label">Altura:</label>
-                            <div><input type="number" class="form-control" name="height" v-model="user.height"></div>
+                            <div class="col-md-auto">
+                                <label class="form-label d-flex text-left">Altura:</label>
+                                <div><input type="number" class="form-control" name="height" v-model="user.height"></div>
+                            </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="form-label">Peso:</label>
-                            <div><input type="number" class="form-control" name="weight" v-model="user.weight"></div>
+                            <div class="col-md-auto">
+                                <label class="form-label d-flex text-left">Peso:</label>
+                                <div><input type="number" class="form-control" name="weight" v-model="user.weight"></div>
+                            </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="form-label">Tamanho do Calçado:</label>
-                            <div><input type="number" class="form-control" name="shoe-size" v-model="user.shoe_size"></div>
+                            <div class="col-md-auto">
+                                <label class="form-label d-flex text-left">Tamanho do Calçado:</label>
+                                <div><input type="number" class="form-control" name="shoe-size" v-model="user.shoe_size"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
