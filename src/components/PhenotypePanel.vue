@@ -81,34 +81,44 @@
             let fetchUrl = this.$props.url;
             
             let response = await this.$root.getRequest(fetchUrl)
-            let data = await response.json()
+            if(response.ok){
+                let data = await response.json()
             
-            console.log(data)
+                this.title = data.title
+                this.prediction = data.prediction
+                this.classe_real = data.classe_real
 
-            this.title = data.title
-            this.prediction = data.prediction
-            this.classe_real = data.classe_real
-
-            this.series = this.getSeries(this.prediction)
-            this.options = {
-                labels:   this.getLabels(this.prediction)
+                this.series = this.getSeries(this.prediction)
+                this.options = {
+                    labels:   this.getLabels(this.prediction)
+                }
+                this.snps = data.snps.map( d => {
+                    d['url_gene'] = "https://www.genecards.org/cgi-bin/carddisp.pl?gene="+d.gene;
+                    d['url_snp']  = "https://www.ncbi.nlm.nih.gov/snp/"+d.snp;
+                    return d;
+                })
             }
-            this.snps = data.snps.map( d => {
-                d['url_gene'] = "https://www.genecards.org/cgi-bin/carddisp.pl?gene="+d.gene;
-                d['url_snp']  = "https://www.ncbi.nlm.nih.gov/snp/"+d.snp;
-                return d;
-            })
+            
+            
         },
         components: {
             Tabela
         }, 
         methods: {
             getLabels: function(data){ 
-                console.log(data)
-                return Object.keys(data)     
+                if(data){
+                    return Object.keys(data)  
+                } else {
+                    return []
+                }
+                   
             },
             getSeries: function(data){
-                return Object.values(data)
+                if(data){
+                    return Object.values(data)
+                } else {
+                    return []
+                }
             }
         }
 

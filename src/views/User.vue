@@ -3,20 +3,21 @@
         <div>
             <div class="card">
                 <ul class="nav nav-tabs" data-bs-toggle="tabs">
-                    <li class="nav-item" v-for="(c, index) in categories" :key="c.name">
-                        <a :href="'#tabs-'+c.id" :class="['nav-link', {active : index == 0}]" data-bs-toggle="tab" aria-current="true">{{c.name}}</a>
-                    </li>
-                    <li class="nav-item">
+                    
+                    <li class="nav-item active">
                         <a :href="'#tabs-ancestry'" class="nav-link" data-bs-toggle="tab" aria-current="true">Ancestralidade</a>
+                    </li>
+
+                    <li class="nav-item" v-for="(c) in categories" :key="c.name">
+                        <a :href="'#tabs-'+c.id" :class="['nav-link']" data-bs-toggle="tab" aria-current="true">{{c.name}}</a>
                     </li>
                 </ul> 
                 <div class="card-body tab-content">
-                    <div v-for="(c, index) in categories" :key="c.id" :class="['tab-pane', {active : index == 0}]" :id="'tabs-'+c.id">
-                        <phenotype-panel  v-for="v in c.views" :key="v.id" :user="targetUser" :url="phenotypeUrl(v.id)"></phenotype-panel>
-                    </div>
-
-                    <div class="tab-pane" id="tabs-ancestry" v-if="ancestryUrl">
+                    <div class="tab-pane active" id="tabs-ancestry">
                         <ancestry-panel :fetchurl="ancestryUrl"></ancestry-panel>
+                    </div>
+                    <div v-for="(c) in categories" :key="c.id" :class="['tab-pane']" :id="'tabs-'+c.id">
+                        <phenotype-panel  v-for="v in c.views" :key="v.id" :user="targetUser" :url="phenotypeUrl(v.id)"></phenotype-panel>
                     </div>
                 </div> 
             </div>
@@ -45,12 +46,10 @@ import PhenotypePanel from '../components/PhenotypePanel.vue'
         mounted: async function() {
             this.targetUser = await this.fetchUser()
             this.categories = await this.fetchCategories()
-
-            console.log(this.categories)
         },
         methods: {
             phenotypeUrl: function(view_id){
-                return 'views/'+view_id+'/user/'+this.$route.params.id+'/complete'
+                return 'views/'+view_id+'?user_id='+this.$route.params.id+'&snps=true'
             },
             fetchUser: async function(){
                 const targetUserResponse = await this.$root.getRequest('users/'+this.$route.params.id)
@@ -62,15 +61,14 @@ import PhenotypePanel from '../components/PhenotypePanel.vue'
                 
                 let categories = []
 
-                
                 for(let category of categoriesJson.data){
-                    let viewsResponse = await this.$root.getRequest('views/category/'+category.id)
+                    let viewsResponse = await this.$root.getRequest('views/?category_id='+category.id)
                     let viewsJson = await viewsResponse.json()
                     
                     categories.push({
                         id: category.id,
                         name: category.name,
-                        views: viewsJson
+                        views: viewsJson.data
                     })
                 }
 

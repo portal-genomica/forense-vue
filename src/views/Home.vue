@@ -8,7 +8,7 @@
         </aside>
         <div class="page-wrapper">
             <div class="page-body">
-                <div class="d-flex h-100 justify-content-center align-items-center" v-if="ready">
+                <div class="container-xl" v-if="ready">
                   <router-view/>                            
                 </div>
             </div>
@@ -38,7 +38,7 @@ export default {
     } else {
       this.$router.push({name: 'Profile'})
     }
-
+    console.log(await this.$root.getRequest('phenotypes/'+this.user.id))
     this.getCategories()
   },
   components: {

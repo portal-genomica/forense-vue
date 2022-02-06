@@ -11,11 +11,11 @@
       return {
         token: null,
         authenticated: false,
+        // apiUrl: 'http://127.0.0.1:2505/forense/api/v1/'
         apiUrl: 'https://sbcb.inf.ufrgs.br/forense/api/v1/'
       }
     },
     mounted: async function(){
-      console.log(this.authenticated)
     },
     methods: {
       getRequestHeader: async function(){
@@ -107,6 +107,7 @@
       logout: function(){
         this.token = null
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
         this.$router.push({name: 'Login'})
       }
     }

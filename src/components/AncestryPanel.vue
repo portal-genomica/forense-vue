@@ -69,6 +69,7 @@
                 fillOpacityHover: 0.1,
                 strokeOpacity: 0.6,
                 strokeOpacityHover: 0.3,
+                mapCreated: false
             }
         },
         mounted: async function() {

@@ -1,67 +1,52 @@
 <template>
-    <div class="col-10">
-        <div class="row w-100 mb-3">
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">
-                            Painel de Ações
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="d-flex text-left">Ação</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="d-flex text-left">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#create-user-modal" v-on:click="createUser">Criar Usuário</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>   
+    <div class="col-12">
+        
+        <div class="row mb-3">
+            <div class="col-2 align-self-end">
+                
+                    <label class="form-label d-flex no-wrap">Nº resultados:</label>
+                
+                    <select class="form-select" v-model="rowsNumber">
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                
+            </div>
+            <div class="col-6 align-self-end">
+                
+                    <label class="form-label d-flex">Pesquisar:</label>
+                    <div class="input-icon"> 
+                        <span class="input-icon-addon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <circle cx="10" cy="10" r="7" />
+                                <line x1="21" y1="21" x2="15" y2="15" />
+                            </svg>
+                        </span> 
+                        <input id="pesquisa-usuario" class="form-control" type="text" v-model="query" :placeholder="placeholder">
                     </div>
                 
-                </div>
+            </div>
+            <div class="col-2 align-self-end">
+                
+                    <label class="form-label d-flex">Filtrar por:</label>
+                
+                    <select class="form-select" v-model="searchType">
+                        <option value="0">Nome</option>
+                        <option value="1">Amostra</option>
+                    </select>
+                
+            </div>
+            <div class="col-2 align-self-end">
+                    <a href="#" class="btn btn-teal d-flex" data-bs-toggle="modal" data-bs-target="#create-user-modal" v-on:click="createUser">
+                    Criar Usuário
+                    </a>
+                
             </div>
         </div>
-        <div class="row w-100">
-            <div class="col-2">
-                <label class="form-label">Número de resultados:</label>
-                <select class="form-select" v-model="rowsNumber">
-                    <option value="10">10</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
-            <div class="col-8">
-                <label class="form-label">Pesquisar:</label>
-                <div class="input-icon mb-3"> 
-                    <span class="input-icon-addon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <circle cx="10" cy="10" r="7" />
-                            <line x1="21" y1="21" x2="15" y2="15" />
-                        </svg>
-                    </span> 
-                    <input id="pesquisa-usuario" class="form-control" type="text" v-model="query" :placeholder="placeholder">
-                </div>
-            </div>
-            <div class="col-2">
-                <label class="form-label">Filtrar por:</label>
-                <select class="form-select" v-model="searchType">
-                    <option value="0">Nome</option>
-                    <option value="1">Amostra</option>
-                </select>
-            </div>
-        </div>
-        <div class="row w-100">
+
+        <div class="row ">
             <div class="col-12">
                 <div class="card">
                         <div class="table-responsive">
@@ -103,8 +88,7 @@
                 </div>
             </div>
         </div>
-
-
+        
         <div class="modal modal-blur fade" id="user" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
