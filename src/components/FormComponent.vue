@@ -13,7 +13,7 @@
 </style>
 
 <template>
-    <div>
+    <div v-if="modelValue">
         <div class="card mb-3">
             <div class="card-body">
                 <h3 class="card-title d-flex">Dados Pessoais do Participante</h3>
@@ -137,7 +137,7 @@
                         </div>
                         <div class="pt-2">
                             <label class="form-check form-switch">
-                                <input class="form-check-input" v-model="value.crespo" name="is_active" type="checkbox">
+                                <input class="form-check-input" v-model="value.is_active" name="is_active" type="checkbox">
                                 <span class="form-check-label strong d-flex">Cabelo Alisado/Encrespado</span>
                             </label>
                         </div>

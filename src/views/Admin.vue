@@ -184,7 +184,7 @@ import FormComponent from '../components/FormComponent.vue';
                 allUsersFetched: false, // parametro para esconder o botão de carregar novos usuários quando não encontra mais usuarios no banco
                 rowsNumber: 10,
                 searchType: 0,
-                targetUser: null,
+                targetUser: {},
                 success: null,
                 teste: 0
 
