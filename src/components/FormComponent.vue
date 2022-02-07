@@ -19,11 +19,11 @@
                <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Nome</label>
+                            <label class="form-label d-flex">Nome</label>
                             <input type="text" v-model="value.name" name="name" class="form-control" placeholder="Nome">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Senha</label>
+                            <label class="form-label d-flex">Senha</label>
                             <input v-if="mode === EDIT_USER" type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha" disabled>
                             <input v-if="mode === CREATE_USER" type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha">
                             
@@ -33,29 +33,28 @@
                     
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">E-mail</label>
+                            <label class="form-label d-flex">E-mail</label>
                             <input v-if="mode === EDIT_USER" type="text" v-model="value.email" name="email" class="form-control" placeholder="E-mail" disabled>
                             <input v-if="mode === CREATE_USER" type="text" v-model="value.email" name="email" class="form-control" placeholder="E-mail">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Amostra</label>
+                            <label class="form-label d-flex">Amostra</label>
                             <input v-if="mode === CREATE_USER" type="text" v-model="value.sample" name="sample" class="form-control" placeholder="Ex: HC000...">
                             <input v-if="mode === EDIT_USER" type="text" v-model="value.sample" name="sample" class="form-control" placeholder="Ex: HC000..." disabled>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
         
                         <div class="mb-3">
-                            <label class="form-label">Data de Nascimento</label>
+                            <label class="form-label d-flex">Data de Nascimento</label>
                             <input type="date" v-model="value.date_of_birth" name="date_of_birth" class="form-control">
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-9">
                         <div class="mb-3">
-                            <label class="form-label">Nacionalidade</label>
-                            <!-- <select-paises></select-paises> -->
+                            <location-select v-model="city_id"></location-select>
                         </div>    
                     </div>
                     
@@ -63,16 +62,22 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3 ">
-                            <div class="form-label">Sexo</div>
-                            <div>
-                                <label class="form-check form-check-inline">
-                                <input v-model="value.sex" name="sex" class="form-check-input" type="radio" value="Male" checked>
-                                <span class="form-check-label">Masculino</span>
-                                </label>
+                            <div class="form-label d-flex">Sexo</div>
+                            <div class="row justify-content-start">
+                                <div class="col-auto">
+                                    <label class="form-check form-check-inline">
+                                    <input v-model="value.sex" name="sex" class="form-check-input" type="radio" value="Male" checked>
+                                    <span class="form-check-label">Masculino</span>
+                                    </label>
+
+                                </div>
+                                <div class="col-auto">
                                 <label class="form-check form-check-inline">
                                 <input v-model="value.sex" name="sex" class="form-check-input" value="Female" type="radio">
                                 <span class="form-check-label">Feminino</span>
                                 </label>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -98,19 +103,19 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class="form-label">Altura</label>
+                            <label class="form-label d-flex">Altura</label>
                             <input type="number" v-model="value.height" min="0" name="height" class="form-control" placeholder="Ex: 180...">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class="form-label">Peso</label>
+                            <label class="form-label d-flex">Peso</label>
                             <input type="number" v-model="value.weight" name="weight" class="form-control" min="0.0" step="0.1" placeholder="Ex: 78.3...">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class="form-label">Tamanho do Calçado</label>
+                            <label class="form-label d-flex">Tamanho do Calçado</label>
                             <input type="number" v-model="value.shoe_size" name="shoe_size" min="0" class="form-control" placeholder="Ex: 41...">
                         </div>
                     </div>
@@ -123,7 +128,9 @@
 </template>
 
 <script>
+import LocationSelect from './LocationSelect.vue'
     export default{
+  components: { LocationSelect },
         name: 'FormComponent',
         props: {
             modelValue: Object,
@@ -137,6 +144,7 @@
                 EDIT_USER: false,
                 CREATE_USER: true,
                 success: null,
+                city_id: 0,
                 formData: []
             }
         },

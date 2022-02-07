@@ -162,6 +162,7 @@
                 </div>
             </div>
         </div> 
+        
     </div>
 </template>
 
@@ -172,7 +173,7 @@ import FormComponent from '../components/FormComponent.vue';
     export default{
         name: 'Admin',
         components: { 
-            FormComponent 
+            FormComponent,
         },
         data: function(){
             return {   
@@ -184,7 +185,9 @@ import FormComponent from '../components/FormComponent.vue';
                 rowsNumber: 10,
                 searchType: 0,
                 targetUser: null,
-                success: null
+                success: null,
+                teste: 0
+
             }
         },
         mounted: async function(){

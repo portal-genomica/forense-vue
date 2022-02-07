@@ -1,7 +1,6 @@
 <style>
     #gencove{
         height: 600px;
-     
     }
 
 
