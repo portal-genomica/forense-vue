@@ -1,3 +1,9 @@
+
+<style>
+    .modal-body{
+        max-height: 800px;
+    }
+</style>
 <template>
     <div class="col-12">
         
@@ -89,13 +95,13 @@
             </div>
         </div>
         
-        <div class="modal modal-blur fade" id="user" tabindex="-1" aria-hidden="true">
+        <div class="modal modal-blur fade h-80" id="user" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body"> 
+                    <div class="modal-body overflow-auto"> 
                         <div class="col-12">
                             <div class="row mb-2">
                                 <form-component :mode="false" :user="targetUser" v-model="targetUser"></form-component>
@@ -126,13 +132,13 @@
             </div>
         </div> 
 
-        <div class="modal modal-blur fade" id="create-user-modal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+        <div class="modal modal-blur fade h-80" id="create-user-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg " role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body"> 
+                    <div class="modal-body overflow-auto"> 
                         <div class="col-12">
                             <div class="row mb-2">
                                 <form-component :mode="true" :user="targetUser" v-model="targetUser"></form-component>

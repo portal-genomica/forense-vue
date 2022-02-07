@@ -167,30 +167,82 @@
         </div>
         
     </div>
+    <div class="card  mb-3">
+        <div class="card-body">
+            <h3 class="card-title d-flex">Dados Biológicos</h3>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <label class="form-label d-flex">Cor do Olho</label>
+
+                    <select class="form-select" v-model="value.eye_color">
+                        <option :value="null" disabled selected>Selecione a cor do olho</option>
+                        <option v-for="eye_color in eye_colors" :key="eye_color.id" :value="eye_color.id">{{eye_color.title}}</option>
+                    </select>
+                </div>
+                
+            </div>
+            
+            <div class="row mb-3">
+
+                <div class="col-lg-6">
+                    <label class="form-label d-flex">Cor da Pele</label>
+                    <select class="form-select" v-model="value.skin_color">
+                        <option :value="null" disabled selected>Selecione a cor da pele</option>
+                        <option v-for="skin_color in skin_colors" :key="skin_color.id" :value="skin_color.id">{{skin_color.title}}</option>
+                        <option v-for="skin_color in skin_colors" :key="skin_color.id" :value="skin_color.id">{{skin_color.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+
+                <div class="col-lg-6">
+                    <label class="form-label d-flex">Cor do Cabelo</label>
+                    <select class="form-select" v-model="value.hair_color">
+                        <option :value="null" disabled selected>Selecione a cor do cabelo</option>
+                        <option v-for="hair_color in hair_colors" :key="hair_color.id" :value="hair_color.id">{{hair_color.title}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="form-label d-flex">Tipo do Cabelo</label>
+                    <select class="form-select" v-model="value.hair_type">
+                        <option :value="null" disabled selected>Selecione o tipo do cabelo</option>
+                        <option v-for="hair_type in hair_types" :key="hair_type.id" :value="hair_type.id">{{hair_type.title}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
                 <div class="card-body">
-                     <h3 class="card-title d-flex">Status na Plataforma</h3>
+                    <h3 class="card-title d-flex">Status na Plataforma</h3>
                 
-                <div class="row justify-content-start">
+                    <div class="row justify-content-start">
 
-                    <div class="col-lg-3 d-flex ">
-                        <div class="pt-2">
-                            <label class="form-check form-switch">
-                                <input class="form-check-input" v-model="value.is_superuser" name="is_superuser" type="checkbox">
-                                <span class="form-check-label strong">Super Usuário</span>
-                            </label>
+                        <div class="col-lg-3 d-flex ">
+                            <div class="pt-2">
+                                <label class="form-check form-switch">
+                                    <input class="form-check-input" v-model="value.is_superuser" name="is_superuser" type="checkbox">
+                                    <span class="form-check-label strong">Super Usuário</span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-3 d-flex">
-                        <div class="pt-2">
-                            <label class="form-check form-switch">
-                                <input class="form-check-input" v-model="value.is_active" name="is_active" type="checkbox">
-                                <span class="form-check-label strong">Usuário Ativo</span>
-                            </label>
+                        <div class="col-lg-3 d-flex">
+                            <div class="pt-2">
+                                <label class="form-check form-switch">
+                                    <input class="form-check-input" v-model="value.is_active" name="is_active" type="checkbox">
+                                    <span class="form-check-label strong">Usuário Ativo</span>
+                                </label>
+                            </div>
                         </div>
+                        
                     </div>
-                </div>
                 </div>
             </div>
     </div>
@@ -212,11 +264,15 @@ import LocationSelect from './LocationSelect.vue'
         
         data: function (){
             return {
-                EDIT_USER: false,
-                CREATE_USER: true,
-                success: null,
-                city_id: 0,
-                formData: []
+                EDIT_USER:      false,
+                CREATE_USER:    true,
+                success:        null,
+                city_id:        0,
+                formData:       [],
+                eye_colors:     [],
+                skin_colors:    [],
+                hair_colors:    [],
+                hair_types:     []
             }
         },
         computed:{
@@ -229,13 +285,23 @@ import LocationSelect from './LocationSelect.vue'
                 },
             }
         },
-        mounted: function(){
+        mounted: async function(){
+            await this.getEyeColors()
+            await this.getSkinColors()
+            await this.getHairColors()
+            await this.getHairTypes()
+
+
             this.value = Object.assign(this.modelValue, {
                     tanned_skin: null,
                     contact_lens: null,
                     protuding_ear: null,
                     unattached_earlobs: null,
                     unnatural_hair_type: null,
+                    skin_color: null,
+                    hair_color: null,
+                    hair_type: null,
+                    eye_color: null,
                     crespo: null
             })
         }, 
@@ -245,9 +311,31 @@ import LocationSelect from './LocationSelect.vue'
             }
         },
         methods: {
-            save: async function(){
+            getEyeColors: async function(){
+                let request = await this.$root.getRequest('eye_colors/')
+                let eye_colors = await request.json()
                 
+                this.eye_colors = eye_colors.data
+            },
+            getSkinColors: async function(){
+                let request = await this.$root.getRequest('skin_colors/')
+                let skin_colors = await request.json()
+                
+                this.skin_colors = skin_colors.data
+            },
+            getHairColors: async function(){
+                let request = await this.$root.getRequest('hair_colors/')
+                let hair_colors = await request.json()
+                
+                this.hair_colors = hair_colors.data
+            },
+            getHairTypes: async function(){
+                let request = await this.$root.getRequest('hair_types/')
+                let hair_types = await request.json()
+                
+                this.hair_types = hair_types.data
             }
+
         }
     }
 </script>
