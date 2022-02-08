@@ -291,7 +291,9 @@ import LocationSelect from './LocationSelect.vue'
             await this.getHairColors()
             await this.getHairTypes()
 
-
+            let request = await this.$root.getRequest('phenotypes/4')
+            console.log(await request.json())
+            
             this.value = Object.assign(this.modelValue, {
                     tanned_skin: null,
                     contact_lens: null,

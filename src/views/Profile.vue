@@ -66,10 +66,17 @@
                         <li class="nav-item">
                           <a href="#tabs-contato" class="nav-link" data-bs-toggle="tab">Dados de Contato</a>
                         </li>
+
+                        <li class="nav-item">
+                          <a href="#tabs-epidemiologico" class="nav-link" data-bs-toggle="tab">Dados Epidemiológicos</a>
+                        </li>
                         <li class="nav-item">
                           <a href="#tabs-antropometrico" class="nav-link" data-bs-toggle="tab">Dados Antropométricos</a>
                         </li>
 
+                        <li class="nav-item">
+                          <a href="#tabs-biologico" class="nav-link" data-bs-toggle="tab">Dados Biológicos</a>
+                        </li>
                       </ul>
                 </div>
             </div>
@@ -90,56 +97,23 @@
                     </div>
                 </div>
                 <div class="tab-pane card-body" id="tabs-contato">
+                    <contact-data :data="user"></contact-data>
+                </div>
+
+                <div class="tab-pane card-body" id="tabs-epidemiologico">
                     <div class="col-8">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                
-                                <h2>Dados de Contato</h2>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-auto">
-                                <label class="form-label d-flex text-left">E-mail:</label>
-                                <div> <input type="text" class="form-control" name="email" v-model="user.email"> </div>
-                            </div>
-                            
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-auto">
-                                <label class="form-label d-flex text-left">Telefone:</label>
-                                <div><input type="tel" class="form-control" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$" name="phone" placeholder="(99)99999-9999"></div>
-                            </div>
-                            
-                        </div>
+                        <epidemiological-data :data="user"></epidemiological-data>
                     </div>
                 </div>
 
                 <div class="tab-pane card-body" id="tabs-antropometrico">
                     <div class="col-8">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <h2>Dados Antropométricos</h2>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-auto">
-                                <label class="form-label d-flex text-left">Altura:</label>
-                                <div><input type="number" class="form-control" name="height" v-model="user.height"></div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-auto">
-                                <label class="form-label d-flex text-left">Peso:</label>
-                                <div><input type="number" class="form-control" name="weight" v-model="user.weight"></div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-auto">
-                                <label class="form-label d-flex text-left">Tamanho do Calçado:</label>
-                                <div><input type="number" class="form-control" name="shoe-size" v-model="user.shoe_size"></div>
-                            </div>
-                        </div>
+                        <anthropometric-data :data="phenotypes"></anthropometric-data>
                     </div>
+                </div>
+
+                <div class="tab-pane card-body" id="tabs-biologico">
+                    <biological-data :data="phenotypes"></biological-data>
                 </div>
             </div>
         </div>
@@ -148,12 +122,32 @@
 </template>
 
 <script>
+    import AnthropometricData from '../components/AnthropometricData.vue'
+    import ContactData from '../components/ContactData.vue'
+    import EpidemiologicalData from '../components/EpidemiologicalData.vue'
+    import BiologicalData from '../components/BiologicalData.vue'
+
     export default {
+        components: { 
+            AnthropometricData, 
+            ContactData,
+            EpidemiologicalData,
+            BiologicalData
+        },
         name: 'Profile',
-        data: function(){
+            data: function(){
             return {
-                user: JSON.parse(localStorage.getItem('user'))
+                user: JSON.parse(localStorage.getItem('user')),
+                phenotypes: {}
             }
+        },
+        mounted: async function() {
+            let response = await this.$root.getRequest('phenotypes/'+this.user.id)
+
+            if( response.ok ){
+                this.phenotypes = await response.json()
+            } 
+            
         },
         computed: {
             initials: function(){
