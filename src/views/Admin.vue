@@ -272,12 +272,23 @@ import FormComponent from '../components/FormComponent.vue';
                 const names_array = name.split(' ')
                 return String(names_array[0][0] + names_array[names_array.length-1][0]).toUpperCase()
             },
-            editUser: function(u){
+            editUser: async function(u){
                 this.success = null
 
-                this.targetUser = {
-                    ...u
+                let responsePhenotypes = await this.$root.getRequest(`phenotypes/${u.id}`)
+
+                if(responsePhenotypes.ok){
+                    let phenotypesData = await responsePhenotypes.json()
+                    this.targetUser = this.editPhenotype(phenotypesData)
+                    this.targetUser.date_of_birth = u.date_of_birth
+
+                } else {    
+                    this.targetUser = Object.assign(
+                        this.newUser(u), 
+                        this.newPhenotype(u)
+                    )
                 }
+
             },
             // return only the fields required to create a new user
             newUser: function(user){
@@ -315,6 +326,34 @@ import FormComponent from '../components/FormComponent.vue';
                     unnatural_hair_type:    user.unnatural_hair_type,
                     unattached_earlobes:    user.unattached_earlobes
                 } 
+            },
+            // create object based on /phenotypes/ response
+            editPhenotype: function(user){
+                return {
+                    user_id:            user.user_id,
+                    email:              user.user.email,
+                    name:               user.user.name,
+                    sample:             user.sample,
+                    hometown_id:        user.hometown.id,
+                    current_city_id:    user.current_city.id,
+                    eye_color_id:       user.eye_color.id,
+                    hair_color_id:      user.hair_color.id,
+                    skin_color_id:      user.skin_color.id,
+                    hair_type_id:       user.hair_type.id,
+                    sex:                user.sex,
+                    height:             user.height,
+                    weight:             user.weight,
+                    shoe_size:          user.shoe_size,
+                    right_handed:       user.right_handed,
+                    protruding_ear:     user.protruding_ear,
+                    contact_lens:       user.contact_lens,
+                    tanned_skin:        user.tanned_skin,
+                    hairs:              user.hairs,
+                    body_hairs:         user.body_hairs,
+                    unnatural_hair_color:   user.unnatural_hair_color,
+                    unnatural_hair_type:    user.unnatural_hair_type,
+                    unattached_earlobes:    user.unattached_earlobes
+                }
             },
             createUser: function(){
                 this.targetUser = {
