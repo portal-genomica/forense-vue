@@ -145,12 +145,12 @@
                             </div>
                             <div class="row">
                                 <div v-if="success === true" class="alert alert-success mb-0" role="alert">
-                                    <h4 class="alert-title">Feito!</h4>
-                                    <div class="text-muted">O usuário foi inserido no banco de dados com sucesso.</div>
+                                    <h4 class="alert-title">{{alert_message.title}}</h4>
+                                    <div class="text-muted">{{alert_message.body}}</div>
                                 </div>
                                 <div v-if="success === false" class="alert alert-danger mb-0" role="alert">
-                                    <h4 class="alert-title">Opa&hellip;</h4>
-                                    <div class="text-muted">Erro no formulário.</div>
+                                    <h4 class="alert-title">{{alert_message.title}}</h4>
+                                    <div class="text-muted">{{alert_message.body}}</div>
                                 </div>
                             </div>
                         </div>
@@ -192,6 +192,7 @@ import FormComponent from '../components/FormComponent.vue';
                 searchType: 0,
                 targetUser: {},
                 success: null,
+                alert_message: '',
                 teste: 0
 
             }
@@ -278,32 +279,105 @@ import FormComponent from '../components/FormComponent.vue';
                     ...u
                 }
             },
+            // return only the fields required to create a new user
+            newUser: function(user){
+                return {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    password_confirmation: user.password_confirmation,
+                    date_of_birth: user.date_of_birth,
+                    is_active: user.is_active,
+                    is_superuser: user.is_superuser
+                }
+            },
+            newPhenotype: function(user){
+                return {
+                    user_id:            user.user_id,
+                    sample:             user.sample,
+                    hometown_id:        user.hometown_id,
+                    current_city_id:    user.current_city_id,
+                    eye_color_id:       user.eye_color_id,
+                    hair_color_id:      user.hair_color_id,
+                    skin_color_id:      user.skin_color_id,
+                    hair_type_id:       user.hair_type_id,
+                    sex:                user.sex,
+                    height:             user.height,
+                    weight:             user.weight,
+                    shoe_size:          user.shoe_size,
+                    right_handed:       user.right_handed,
+                    protruding_ear:     user.protruding_ear,
+                    contact_lens:       user.contact_lens,
+                    tanned_skin:        user.tanned_skin,
+                    hairs:              user.hairs,
+                    body_hairs:         user.body_hairs,
+                    unnatural_hair_color:   user.unnatural_hair_color,
+                    unnatural_hair_type:    user.unnatural_hair_type,
+                    unattached_earlobes:    user.unattached_earlobes
+                } 
+            },
             createUser: function(){
                 this.targetUser = {
-                    'name': null,
-                    'email': null,
-                    'password': null,
-                    'sample': null,
-                    'date_of_birth': null,
-                    'is_active': false,
-                    'is_superuser': false,
-                    'sex': null,
-                    'weight': null,
-                    'height': null,
-                    'shoe_size': null,
-                    'nationality': null
+                    user_id: 0,
+                    sample: "",
+                    hometown_id: 0,
+                    current_city_id: 0,
+                    eye_color_id: 0,
+                    hair_color_id: 0,
+                    skin_color_id: 0,
+                    hair_type_id: 0,
+                    sex: "Female",
+                    height: 0,
+                    weight: 0,
+                    shoe_size: 1,
+                    right_handed: true,
+                    protruding_ear: false,
+                    contact_lens: false,
+                    unnatural_hair_color: false,
+                    unnatural_hair_type: false,
+                    unattached_earlobes: false,
+                    tanned_skin: false,
+                    hairs: 1,
+                    body_hairs: 1
                 }
             },
             saveUser: async function(){
-                let request = await this.$root.patchRequest('users/', this.targetUser)
+                let responseCreateUser = await this.$root.postData('users/', this.newUser(this.targetUser))
 
-                if(request.ok){
-                    this.success = true
-                    let data = await request.json()
-                    this.users.push(data)
+                if(responseCreateUser.ok){
+                    let new_user = await responseCreateUser.json()
+
+                    this.targetUser.user_id = new_user.id
+                    
+                    let responsePhenotypes = await this.$root.postData('phenotypes/', this.newPhenotype(this.targetUser))
+
+                    console.log(await responsePhenotypes.json())
+                    if(responsePhenotypes.ok){
+                        this.sendAlert({
+                            status: true,
+                            title: 'Feito!',
+                            message: 'O usuário foi inserido no banco de dados com sucesso.'
+                        })
+
+                    console.log(await responsePhenotypes.json())
+
+                    } else {
+                        this.sendAlert({
+                            status: false,
+                            title: 'Opa...',
+                            message: 'Erro no formulário. O usuário foi inserido no banco de dados, porém as informações fenotípicas não estão corretas.'
+                        })                        
+                    }
+                    this.users.push(new_user)
                     // this.cleanForm()
                 } else {
-                    this.success = false    
+                    this.sendAlert({
+                        status: false,
+                        title: 'Opa...',
+                        message: 'Erro no formulário. Não foi possível criar o usuário no banco de dados.'
+                    })
+
+                    console.log(await responseCreateUser.json())
                 }
             },
             saveEdit: async function(){
@@ -323,6 +397,14 @@ import FormComponent from '../components/FormComponent.vue';
                     this.success = false
                 }
                 
+            },
+            sendAlert: function(message_obj){
+                this.success        = message_obj.status
+
+                this.alert_message  = {
+                    title: message_obj.title,
+                    body: message_obj.message
+                }
             }
         }
     }

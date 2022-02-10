@@ -10,7 +10,7 @@
         <div class="col-8">
             <label class="form-label d-flex">Cidade</label>
             <select class="form-select" v-model="selected_city">
-                <option value="0" disabled selected>Selecione uma cidade</option>
+                <option :value="0" disabled selected>Selecione uma cidade</option>
                 <option v-for="city in cities" :key="city.city_id" :value="city.city_id">{{city.city}}</option>
             </select>
         </div>

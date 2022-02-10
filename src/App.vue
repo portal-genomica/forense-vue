@@ -11,6 +11,7 @@
       return {
         token: null,
         authenticated: false,
+        // apiUrl: 'http://127.0.0.1:2505/forense/api/v1/'
         apiUrl: 'https://sbcb.inf.ufrgs.br/forense/api/v1/'
       }
     },
@@ -91,13 +92,18 @@
       },
       postData: async function(path, body){
         const url = this.apiUrl + path.replace('./', ''); // absolut path
+        let headers = new Headers()
+
+        
+        headers.append('Content-Type', 'application/json')
+        headers.append('Accept', 'application/json')
+        headers.append('Authorization', 'Bearer '+ this.token.access_token)
 
         const response = await fetch(url, {
             method: 'POST', 
             mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            //credentials: 'same-origin', // include, *same-origin, omit
-            headers: await this.getRequestHeader(),
+            // credentials: 'include', // include, *same-origin, omit
+            headers: headers,
             body: JSON.stringify(body) 
         });
 

@@ -38,7 +38,6 @@ export default {
     } else {
       this.$router.push({name: 'Profile'})
     }
-    console.log(await this.$root.getRequest('phenotypes/'+this.user.id))
     this.getCategories()
   },
   components: {
