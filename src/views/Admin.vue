@@ -280,6 +280,7 @@ import FormComponent from '../components/FormComponent.vue';
                 if(responsePhenotypes.ok){
 
                     let phenotypesData = await responsePhenotypes.json()
+                    console.log(phenotypesData)
                     this.targetUser = this.editPhenotype(phenotypesData)
                     this.targetUser.date_of_birth = u.date_of_birth
 
@@ -369,7 +370,7 @@ import FormComponent from '../components/FormComponent.vue';
                     hair_color_id: 0,
                     skin_color_id: 0,
                     hair_type_id: 0,
-                    sex: "Female",
+                    sex: "Male",
                     height: 0,
                     weight: 0,
                     shoe_size: 1,

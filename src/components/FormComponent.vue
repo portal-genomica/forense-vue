@@ -79,14 +79,14 @@
                             <div class="row justify-content-start">
                                 <div class="col-auto">
                                     <label class="form-check form-check-inline">
-                                    <input v-model="value.sex" name="sex" class="form-check-input" type="radio" :value="'Male'">
+                                    <input v-model="value.sex" name="sex" class="form-check-input" type="radio" :value="String('Male')">
                                     <span class="form-check-label">Masculino</span>
                                     </label>
 
                                 </div>
                                 <div class="col-auto">
                                 <label class="form-check form-check-inline">
-                                <input v-model="value.sex" name="sex" class="form-check-input" :value="'Female'" type="radio">
+                                <input v-model="value.sex" name="sex" class="form-check-input" :value="String('Female')" type="radio">
                                 <span class="form-check-label">Feminino</span>
                                 </label>
                                     
@@ -327,6 +327,7 @@ import LocationSelect from './LocationSelect.vue'
             await this.getHairColors()
             await this.getHairTypes()
             
+
             this.value = this.modelValue
             // this.value = Object.assign(this.modelValue, {
             //         current_city_id: 0,
