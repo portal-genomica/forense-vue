@@ -93,7 +93,7 @@
                 }
             },
             selected_city: async function(city){
-                if(this.selected_state == ''){
+                if(this.selected_state == '' && this.selected_city != 0){
                     let responseLocations = await this.$root.getRequest(`locations/${city}`)
 
                     let dataCity = await responseLocations.json()

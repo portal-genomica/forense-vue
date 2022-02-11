@@ -69,7 +69,7 @@
         </div>
          <div class="card mb-3">
         <div class="card-body">
-            <div class="col-12" v-if="user">
+            <div class="col-12">
                 <h3 class="card-title d-flex">Dados Epidemiológicos</h3>
 
                 <div class="row">
@@ -79,16 +79,16 @@
                             <div class="row justify-content-start">
                                 <div class="col-auto">
                                     <label class="form-check form-check-inline">
-                                    <input v-model="value.sex" name="sex" class="form-check-input" type="radio" :value="String('Male')">
-                                    <span class="form-check-label">Masculino</span>
+                                        <input v-model="value.sex" name="male" class="form-check-input" type="radio" :value="String('Male')">
+                                        <span class="form-check-label">Masculino</span>
                                     </label>
 
                                 </div>
                                 <div class="col-auto">
-                                <label class="form-check form-check-inline">
-                                <input v-model="value.sex" name="sex" class="form-check-input" :value="String('Female')" type="radio">
-                                <span class="form-check-label">Feminino</span>
-                                </label>
+                                    <label class="form-check form-check-inline">
+                                        <input v-model="value.sex" name="female" class="form-check-input" :value="String('Female')" type="radio">
+                                        <span class="form-check-label">Feminino</span>
+                                    </label>
                                     
                                 </div>
                             </div>
@@ -294,7 +294,6 @@ import LocationSelect from './LocationSelect.vue'
         name: 'FormComponent',
         props: {
             modelValue: Object,
-            user: Object,
             mode: Boolean
         },
         emits: ['update:modelValue'],
@@ -308,7 +307,7 @@ import LocationSelect from './LocationSelect.vue'
                 eye_colors:     [],
                 skin_colors:    [],
                 hair_colors:    [],
-                hair_types:     []
+                hair_types:     [],
             }
         },
         computed:{
@@ -317,6 +316,7 @@ import LocationSelect from './LocationSelect.vue'
                     return this.modelValue
                 },
                 set(value){
+                    this.value.sex = value.sex
                     this.$emit('update:modelValue', value)
                 },
             }
@@ -345,8 +345,11 @@ import LocationSelect from './LocationSelect.vue'
             // })
         }, 
         watch: {
-            user: function() {
-                this.formData = this.user
+            value: {
+                handler: function(value){
+                    console.log(value.sex)
+                },
+                deep: true
             }
         },
         methods: {

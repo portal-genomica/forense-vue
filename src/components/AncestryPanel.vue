@@ -54,6 +54,7 @@
     export default {
         name: 'AncestryPanel',
         props: {
+            active: Boolean,
             fetchurl: {
                 type: String,
                 required: true
@@ -85,6 +86,13 @@
                
 
             this.fillMap() 
+        },
+        watch: {
+            active: function(value){
+                if(value == true){
+                    this.map.invalidateSize()
+                }
+            }
         },
         methods: {
             createMap: function(){

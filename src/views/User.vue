@@ -4,20 +4,24 @@
             <div class="card">
                 <ul class="nav nav-tabs" data-bs-toggle="tabs">
                     
-                    <li class="nav-item active">
-                        <a :href="'#tabs-ancestry'" class="nav-link" data-bs-toggle="tab" aria-current="true">Ancestralidade</a>
+
+                    <li class="nav-item" v-for="(c, index) in categories" :key="c.name">
+                        <a :href="'#tabs-'+c.id" :class="['nav-link', {active: index == 0}]" data-bs-toggle="tab" aria-current="true" v-on:click="map_active = false">{{c.name}}</a>
                     </li>
 
-                    <li class="nav-item" v-for="(c) in categories" :key="c.name">
-                        <a :href="'#tabs-'+c.id" :class="['nav-link']" data-bs-toggle="tab" aria-current="true">{{c.name}}</a>
+
+                    <li class="nav-item">
+                        <a :href="'#tabs-ancestry'" class="nav-link" data-bs-toggle="tab" aria-current="true" v-on:click="map_active = true">Ancestralidade</a>
                     </li>
                 </ul> 
                 <div class="card-body tab-content">
-                    <div class="tab-pane active" id="tabs-ancestry">
-                        <ancestry-panel :fetchurl="ancestryUrl"></ancestry-panel>
-                    </div>
-                    <div v-for="(c) in categories" :key="c.id" :class="['tab-pane']" :id="'tabs-'+c.id">
+                    
+                    <div v-for="(c, index) in categories" :key="c.id" :class="['tab-pane', {active: index == 0}]" :id="'tabs-'+c.id">
                         <phenotype-panel  v-for="v in c.views" :key="v.id" :user="targetUser" :url="phenotypeUrl(v.id)"></phenotype-panel>
+                    </div>
+
+                    <div class="tab-pane" id="tabs-ancestry">
+                        <ancestry-panel :active="map_active" :fetchurl="ancestryUrl"></ancestry-panel>
                     </div>
                 </div> 
             </div>
@@ -40,7 +44,8 @@ import PhenotypePanel from '../components/PhenotypePanel.vue'
                 teste: false,
                 targetUser: null,
                 ancestryUrl: 'ancestry/prediction/1/'+this.$route.params.id,
-                categories: []
+                categories: [],
+                map_active: false
             }
         },
         mounted: async function() {

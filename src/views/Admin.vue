@@ -104,7 +104,7 @@
                     <div class="modal-body overflow-auto"> 
                         <div class="col-12">
                             <div class="row mb-2">
-                                <form-component :mode="false" :user="targetUser" v-model="targetUser"></form-component>
+                                <form-component :mode="false" v-model="targetUser"></form-component>
                             </div>
                             <div class="row">
                                 <div v-if="success === true" class="alert alert-success mb-0" role="alert">
@@ -141,7 +141,7 @@
                     <div class="modal-body overflow-auto"> 
                         <div class="col-12">
                             <div class="row mb-2">
-                                <form-component :mode="true" :user="targetUser" v-model="targetUser"></form-component>
+                                <form-component :mode="true" v-model="targetUser"></form-component>
                             </div>
                             <div class="row">
                                 <div v-if="success === true" class="alert alert-success mb-0" role="alert">
@@ -280,7 +280,6 @@ import FormComponent from '../components/FormComponent.vue';
                 if(responsePhenotypes.ok){
 
                     let phenotypesData = await responsePhenotypes.json()
-                    console.log(phenotypesData)
                     this.targetUser = this.editPhenotype(phenotypesData)
                     this.targetUser.date_of_birth = u.date_of_birth
 
