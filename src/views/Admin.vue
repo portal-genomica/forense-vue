@@ -278,6 +278,7 @@ import FormComponent from '../components/FormComponent.vue';
                 let responsePhenotypes = await this.$root.getRequest(`phenotypes/${u.id}`)
 
                 if(responsePhenotypes.ok){
+
                     let phenotypesData = await responsePhenotypes.json()
                     this.targetUser = this.editPhenotype(phenotypesData)
                     this.targetUser.date_of_birth = u.date_of_birth
@@ -293,6 +294,7 @@ import FormComponent from '../components/FormComponent.vue';
             // return only the fields required to create a new user
             newUser: function(user){
                 return {
+                    id:   user.id,
                     name: user.name,
                     email: user.email,
                     password: user.password,
@@ -304,7 +306,7 @@ import FormComponent from '../components/FormComponent.vue';
             },
             newPhenotype: function(user){
                 return {
-                    user_id:            user.user_id,
+                    user_id:            user.id,
                     sample:             user.sample,
                     hometown_id:        user.hometown_id,
                     current_city_id:    user.current_city_id,
@@ -334,6 +336,8 @@ import FormComponent from '../components/FormComponent.vue';
                     email:              user.user.email,
                     name:               user.user.name,
                     sample:             user.sample,
+                    is_active:          user.is_active,
+                    is_superuser:       user.is_superuser,
                     hometown_id:        user.hometown.id,
                     current_city_id:    user.current_city.id,
                     eye_color_id:       user.eye_color.id,
@@ -390,7 +394,7 @@ import FormComponent from '../components/FormComponent.vue';
                     
                     let responsePhenotypes = await this.$root.postData('phenotypes/', this.newPhenotype(this.targetUser))
 
-                    console.log(await responsePhenotypes.json())
+                    // console.log(await responsePhenotypes.json())
                     if(responsePhenotypes.ok){
                         this.sendAlert({
                             status: true,
@@ -398,7 +402,6 @@ import FormComponent from '../components/FormComponent.vue';
                             message: 'O usuário foi inserido no banco de dados com sucesso.'
                         })
 
-                    console.log(await responsePhenotypes.json())
 
                     } else {
                         this.sendAlert({
@@ -416,25 +419,61 @@ import FormComponent from '../components/FormComponent.vue';
                         message: 'Erro no formulário. Não foi possível criar o usuário no banco de dados.'
                     })
 
-                    console.log(await responseCreateUser.json())
                 }
             },
             saveEdit: async function(){
-                let request = await this.$root.patchRequest('users/update/'+this.targetUser.id, this.targetUser)
-                
-                if(request.ok){
-                    this.success = true
-                
-                // update front-end object
-                    Object.assign(this.users.filter( d => {
-                        if(d.id == this.targetUser.id){
-                        return d
-                        }
-                    })[0], this.targetUser)
-                
+                // check if user has registered phenotypes
+
+                let responseUserUpdate = await this.$root.patchRequest('users/update/'+this.targetUser.user_id, this.targetUser)
+
+                let response = await this.$root.getRequest(`phenotypes/${this.targetUser.user_id}`)
+
+                if(response.ok){
+                    
+                    let responsePhenotypes = await this.$root.patchRequest(`phenotypes/${this.targetUser.user_id}`, this.targetUser)
+
+                    if(responsePhenotypes.ok){
+                        this.sendAlert({
+                            status: true,
+                            title: 'Feito!',
+                            message: 'Fenótipos atualizados com sucesso.'
+                        })
+
+                        console.log(await responsePhenotypes.json())
+                    }   
+                    else{
+                        this.sendAlert({
+                            status: false,
+                            title:  'Opa...',
+                            message: 'Não foi possível atualizar os fenótipos do usuário.'
+                        })
+                    }
+                    if(responseUserUpdate.ok){
+                        console.log('edit user ok;')
+                    } else {
+                        console.log('Erro edit user;')
+                    }
                 } else {
-                    this.success = false
+                    let responsePhenotypes = await this.$root.postData(`phenotypes/`, this.newPhenotype(this.targetUser))
+
+                    if(responsePhenotypes.ok){
+                        this.sendAlert({
+                            status: true,
+                            title: 'Feito!',
+                            message: 'Fenótipos criado com sucesso.'
+                        })
+
+                        console.log(await responsePhenotypes.json())
+                    }   
+                    else{
+                        this.sendAlert({
+                            status: false,
+                            title:  'Opa...',
+                            message: 'Não foi possível criar os fenótipos do usuário.'
+                        })
+                    }
                 }
+                
                 
             },
             sendAlert: function(message_obj){

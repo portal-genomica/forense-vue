@@ -79,14 +79,14 @@
                             <div class="row justify-content-start">
                                 <div class="col-auto">
                                     <label class="form-check form-check-inline">
-                                    <input v-model="value.sex" name="sex" class="form-check-input" type="radio" value="Male" checked>
+                                    <input v-model="value.sex" name="sex" class="form-check-input" type="radio" :value="'Male'">
                                     <span class="form-check-label">Masculino</span>
                                     </label>
 
                                 </div>
                                 <div class="col-auto">
                                 <label class="form-check form-check-inline">
-                                <input v-model="value.sex" name="sex" class="form-check-input" value="Female" type="radio">
+                                <input v-model="value.sex" name="sex" class="form-check-input" :value="'Female'" type="radio">
                                 <span class="form-check-label">Feminino</span>
                                 </label>
                                     
@@ -137,7 +137,7 @@
                     <div class="col-lg-6">
                         <div class="pt-2">
                             <label class="form-check form-switch">
-                                <input class="form-check-input" v-model="value.unattached_earlobs" name="is_active" type="checkbox">
+                                <input class="form-check-input" v-model="value.unattached_earlobes" name="is_active" type="checkbox">
                                 <span class="form-check-label strong d-flex">Lóbulo da Orelha Solto</span>
                             </label>
                         </div>
