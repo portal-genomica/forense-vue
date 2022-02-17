@@ -323,9 +323,10 @@ import FormComponent from '../components/FormComponent.vue';
                     tanned_skin:        user.tanned_skin,
                     hairs:              user.hairs,
                     body_hairs:         user.body_hairs,
+                    collected_at:       user.collected_at,
                     unnatural_hair_color:   user.unnatural_hair_color,
                     unnatural_hair_type:    user.unnatural_hair_type,
-                    unattached_earlobes:    user.unattached_earlobes
+                    unattached_earlobes:    user.unattached_earlobes,
                 } 
             },
             // create object based on /phenotypes/ response
@@ -354,6 +355,7 @@ import FormComponent from '../components/FormComponent.vue';
                     tanned_skin:        user.tanned_skin,
                     hairs:              user.hairs,
                     body_hairs:         user.body_hairs,
+                    collected_at:       user.collected_at,
                     unnatural_hair_color:   user.unnatural_hair_color,
                     unnatural_hair_type:    user.unnatural_hair_type,
                     unattached_earlobes:    user.unattached_earlobes
@@ -380,6 +382,7 @@ import FormComponent from '../components/FormComponent.vue';
                     unnatural_hair_type: false,
                     unattached_earlobes: false,
                     tanned_skin: false,
+                    collected_at: "",
                     hairs: 1,
                     body_hairs: 1
                 }
