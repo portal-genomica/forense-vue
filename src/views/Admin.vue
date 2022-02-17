@@ -274,20 +274,19 @@ import FormComponent from '../components/FormComponent.vue';
             },
             editUser: async function(u){
                 this.success = null
-
                 let responsePhenotypes = await this.$root.getRequest(`phenotypes/${u.id}`)
 
                 if(responsePhenotypes.ok){
 
                     let phenotypesData = await responsePhenotypes.json()
-                    this.targetUser = this.editPhenotype(phenotypesData)
-                    this.targetUser.date_of_birth = u.date_of_birth
+                    this.targetUser = this.editPhenotype(Object.assign(phenotypesData, u))
 
                 } else {    
                     this.targetUser = Object.assign(
                         this.newUser(u), 
                         this.newPhenotype(u)
                     )
+                    console.log(this.targetUser)
                 }
 
             },
@@ -336,6 +335,7 @@ import FormComponent from '../components/FormComponent.vue';
                     email:              user.user.email,
                     name:               user.user.name,
                     sample:             user.sample,
+                    date_of_birth:      user.date_of_birth,
                     is_active:          user.is_active,
                     is_superuser:       user.is_superuser,
                     hometown_id:        user.hometown.id,
