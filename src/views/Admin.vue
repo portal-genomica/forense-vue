@@ -121,8 +121,8 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-link link-secondary" data-dismiss="modal">
-                            Cancel
+                        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                            Cancelar
                         </a>
                         <button class="btn btn-primary ms-auto" v-on:click="saveEdit">
                             Salvar
@@ -158,8 +158,8 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-link link-secondary" data-dismiss="modal">
-                            Cancel
+                        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                            Cancelar
                         </a>
                         <button class="btn btn-primary ms-auto" v-on:click="saveUser">
                             Salvar
@@ -385,41 +385,76 @@ import FormComponent from '../components/FormComponent.vue';
                 }
             },
             saveUser: async function(){
-                let responseCreateUser = await this.$root.postData('users/', this.newUser(this.targetUser))
+                let responseGetUsers = await this.$root.getRequest(`users?name=${this.targetUser.name}`)
+                
+                let users = await responseGetUsers.json()
+                
+                if(!users.data.length){
 
-                if(responseCreateUser.ok){
-                    let new_user = await responseCreateUser.json()
+                    let responseCreateUser = await this.$root.postData('users/', this.newUser(this.targetUser))
 
-                    this.targetUser.user_id = new_user.id
-                    
-                    let responsePhenotypes = await this.$root.postData('phenotypes/', this.newPhenotype(this.targetUser))
-
-                    // console.log(await responsePhenotypes.json())
-                    if(responsePhenotypes.ok){
-                        this.sendAlert({
-                            status: true,
-                            title: 'Feito!',
-                            message: 'O usuário foi inserido no banco de dados com sucesso.'
-                        })
-
-
+                    if(responseCreateUser.ok){
+                        let new_user = await responseCreateUser.json()
+                        console.log(new_user)
+                        this.targetUser.user_id = new_user.id
+                        
+                        await this.savePhenotype(this.targetUser)
+                        // this.cleanForm()
                     } else {
                         this.sendAlert({
                             status: false,
                             title: 'Opa...',
-                            message: 'Erro no formulário. O usuário foi inserido no banco de dados, porém as informações fenotípicas não estão corretas.'
-                        })                        
+                            message: 'Erro no formulário. Não foi possível criar o usuário no banco de dados.'
+                        })
+
                     }
-                    this.users.push(new_user)
-                    // this.cleanForm()
+                
+                } else {
+
+                    let new_user = users.data[0]
+
+                    console.log(new_user)
+
+                    this.targetUser.id = new_user.id
+                    this.targetUser.user_id = new_user.id
+                    
+                    let updateUser = await this.$root.patchRequest(`users/update/${this.targetUser.id}`, {
+                        name:           this.targetUser.name,
+                        date_of_birth:  this.targetUser.date_of_birth,
+                        is_active:      this.targetUser.is_active,
+                        is_superuser:   this.targetUser.is_superuser  
+                    })
+
+                    if(updateUser.ok) console.log(await updateUser.json())
+
+                    await this.savePhenotype(this.targetUser)
+
+                }
+
+                
+            },
+            savePhenotype: async function(new_user){
+
+                let responsePhenotypes = await this.$root.postData('phenotypes/', this.newPhenotype(new_user))
+                console.log(responsePhenotypes)
+                if(responsePhenotypes.ok){
+
+                    this.sendAlert({
+                        status: true,
+                        title: 'Feito!',
+                        message: 'O usuário foi inserido no banco de dados com sucesso.'
+                    })
+
                 } else {
                     this.sendAlert({
                         status: false,
                         title: 'Opa...',
-                        message: 'Erro no formulário. Não foi possível criar o usuário no banco de dados.'
-                    })
-
+                        message: 'Erro no formulário. O usuário foi inserido no banco de dados, porém as informações fenotípicas não estão corretas.'
+                    })                        
                 }
+
+                // this.users.push(new_user)
+
             },
             saveEdit: async function(){
                 // check if user has registered phenotypes

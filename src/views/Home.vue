@@ -25,7 +25,7 @@ export default {
   name: 'Home',
   data: function(){
     return {
-      user: JSON.parse(localStorage.getItem('user')),
+      user: null,
       ready: true,
       categories: []
     }
@@ -36,9 +36,10 @@ export default {
     if(response == false){
       this.$router.push({name: 'Login'})
     } else {
+      this.user = JSON.parse(localStorage.getItem('user'))
       this.$router.push({name: 'Profile'})
     }
-    this.getCategories()
+    await this.getCategories()
   },
   components: {
     Navbar
@@ -48,6 +49,8 @@ export default {
       const categoriesResponse = await this.$root.getRequest('categories/')
       const categoriesJson = await categoriesResponse.json()
 
+      let test = (await this.$root.getRequest('views/'))
+      console.log(await test.json())
       this.categories = categoriesJson.data
 
     }
