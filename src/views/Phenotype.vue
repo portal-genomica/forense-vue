@@ -48,10 +48,11 @@
             getViews: async function(){
                 let categoryId = this.$route.params.category
 
+
                 let viewsResponse = await this.$root.getRequest('views/?category_id='+categoryId)
                 let viewsJson = await viewsResponse.json()
                 
-                this.views = viewsJson
+                this.views = viewsJson.data
             },
             getUrl: function(id){
                 return 'views/'+id+'?snps=true'

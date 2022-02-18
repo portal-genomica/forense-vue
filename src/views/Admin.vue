@@ -267,6 +267,7 @@ import FormComponent from '../components/FormComponent.vue';
             queryGet: function(){ 
                 if(this.query == '') return ''
                 else return '&name='+this.query   
+            
             },
             get_initials: function(name){
                 const names_array = name.split(' ')
