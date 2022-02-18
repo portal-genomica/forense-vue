@@ -89,9 +89,9 @@
                 }
             },
             right_hand: function(){
-                if(this.user_data.right_hand == true){
+                if(this.user_data.right_handed == true){
                     return 'Direita'
-                } else if(this.user_data.right_hand == false) {
+                } else if(this.user_data.right_handed == false) {
                     return 'Esquerda'
                 } else {
                     return 'Não há dados.'

@@ -1,9 +1,17 @@
 <style>
     @import url("https://unpkg.com/@tabler/core@latest/dist/css/tabler.min.css");
+    #container{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
 </style>
 
 <template>
-    <div id="container" class ="container h-100">
+    <div id="container">
         <div class="row align-items-center justify-content-around h-100">  
             <div class="col-sm-5">
                     <div class="card">
@@ -58,7 +66,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </template>

@@ -1,20 +1,19 @@
 <template>
-  <body>
-    <div class="wrapper">
-        <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" v-on:click="printCategories">
-            <div class="container-fluid">
-                <navbar :categories="categories" v-bind:user="user"></navbar>
-            </div>
-        </aside>
-        <div class="page-wrapper">
-            <div class="page-body">
-                <div class="container-xl" v-if="ready">
-                  <router-view/>                            
-                </div>
-            </div>
-        </div>
-    </div>
-  </body>
+
+  <div>
+      <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" v-on:click="printCategories">
+          <div class="container-fluid">
+              <navbar :categories="categories" v-bind:user="user"></navbar>
+          </div>
+      </aside>
+      <div class="page-wrapper">
+          <div class="page-body">
+              <div class="container-xl" v-if="ready">
+                <router-view/>                            
+              </div>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script>

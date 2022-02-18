@@ -53,8 +53,8 @@
                 }
             },
             current_city: function(){
-                if(this.user_hometown){
-                    return this.user_hometown.title
+                if(this.user_current_city){
+                    return this.user_current_city.title
                 } else {
                     return 'Não há dados para residência.'
                 }
