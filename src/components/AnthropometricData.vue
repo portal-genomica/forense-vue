@@ -4,44 +4,44 @@
         <div class="row mb-3">
             <div class="col-auto">
                 <div class="mb-3">
-                    <label class="form-label d-flex">Altura</label>
+                    <label class="form-label">Altura</label>
                     <input type="text" class="form-control form-control-flush" :value="height" disabled>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-flex">Peso</label>
+                    <label class="form-label">Peso</label>
                     <input type="text" class="form-control form-control-flush" :value="weight" disabled>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-flex">Nº do Calçado</label>
+                    <label class="form-label">Nº do Calçado</label>
                     <input type="text" class="form-control form-control-flush" :value="shoe_size" disabled>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-flex">Mão Preferencial</label>
+                    <label class="form-label">Mão Preferencial</label>
                     <input type="text" class="form-control form-control-flush" :value="right_hand" disabled>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-flex">Orelha Saliente</label>
+                    <label class="form-label">Orelha Saliente</label>
                     <input type="text" class="form-control form-control-flush" :value="protuding_ear" disabled>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label d-flex">Lóbulo da Orelha Solto</label>
+                    <label class="form-label">Lóbulo da Orelha Solto</label>
                     <input type="text" class="form-control form-control-flush" :value="unattached_earlobs" disabled>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label d-flex">Lente de Contato</label>
+                    <label class="form-label">Lente de Contato</label>
                     <input type="text" class="form-control form-control-flush" :value="contact_lens" disabled>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label d-flex">Cabelo Pintado/Descolorido</label>
+                    <label class="form-label">Cabelo Pintado/Descolorido</label>
                     <input type="text" class="form-control form-control-flush" :value="unnatural_hair_type" disabled>
                 </div>
 
 
                 <div class="mb-3">
-                    <label class="form-label d-flex">Está bem Bronzeado</label>
+                    <label class="form-label">Está bem Bronzeado</label>
                     <input type="text" class="form-control form-control-flush" :value="tanned_skin" disabled>
                 </div>
             </div>

@@ -20,14 +20,14 @@
 
                     <div class="col-lg-3">
                         <div class="mb-3">
-                            <label class="form-label d-flex">Amostra</label>
+                            <label class="form-label ">Amostra</label>
                             <input v-if="mode === CREATE_USER" type="text" v-model="value.sample" name="sample" class="form-control" placeholder="Ex: HC000...">
                             <input v-if="mode === EDIT_USER" type="text" v-model="value.sample" name="sample" class="form-control" placeholder="Ex: HC000..." disabled>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="mb-3">        
-                            <label class="form-label d-flex">Data de Coleta</label>
+                            <label class="form-label ">Data de Coleta</label>
                             <input type="date" v-model="value.collected_at" name="collected_at" class="form-control">
                         </div>
                     </div>
@@ -39,11 +39,11 @@
         </div>
         <div class="card mb-3">
             <div class="card-body">
-                <h3 class="card-title d-flex">Dados Pessoais do Participante</h3>
+                <h3 class="card-title">Dados Pessoais do Participante</h3>
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="mb-3">
-                            <label class="form-label d-flex">Nome</label>
+                            <label class="form-label ">Nome</label>
                             <input type="text" v-model="value.name" name="name" class="form-control" placeholder="Nome">
                         </div>        
                     </div>
@@ -53,7 +53,7 @@
                     <div class="col-lg-3">
         
                         <div class="mb-3">
-                            <label class="form-label d-flex">Data de Nascimento</label>
+                            <label class="form-label">Data de Nascimento</label>
                             <input type="date" v-model="value.date_of_birth" name="date_of_birth" class="form-control">
                         </div>
                     </div>
@@ -64,14 +64,14 @@
 
                     <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class="form-label d-flex">Senha</label>
+                            <label class="form-label ">Senha</label>
                             <input v-if="mode === EDIT_USER" type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha" disabled>
                             <input v-if="mode === CREATE_USER" type="password" v-model="value.password" name="password" class="form-control" placeholder="Senha">
                         </div>
                     </div>
 
                     <div class="col-lg-4">
-                        <label class="form-label d-flex">Repita a Senha</label>
+                        <label class="form-label ">Repita a Senha</label>
                         <input v-if="mode === EDIT_USER" type="password" v-model="value.password_confirmation" name="password" class="form-control" placeholder="Senha" disabled>
                         <input v-if="mode === CREATE_USER" type="password" v-model="value.password_confirmation" name="password" class="form-control" placeholder="Senha">
                     </div>
@@ -80,7 +80,7 @@
 
                     <div class="col-lg-7">
                         <div class="mb-3">
-                            <label class="form-label d-flex">E-mail</label>
+                            <label class="form-label ">E-mail</label>
                             <input v-if="mode === EDIT_USER" type="text" v-model="value.email" name="email" class="form-control" placeholder="E-mail" disabled>
                             <input v-if="mode === CREATE_USER" type="text" v-model="value.email" name="email" class="form-control" placeholder="E-mail">
                         </div>
@@ -91,12 +91,12 @@
          <div class="card mb-3">
             <div class="card-body">
                 <div class="col-12">
-                    <h3 class="card-title d-flex">Dados Epidemiológicos</h3>
+                    <h3 class="card-title">Dados Epidemiológicos</h3>
 
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="mb-3 ">
-                                <div class="form-label d-flex">Sexo</div>
+                                <div class="form-label ">Sexo</div>
                                 <select class="form-select" v-model="value.sex">
                                     <option :value="'Male'" selected>Masculino</option>
                                     <option :value="'Female'">Feminino</option>
@@ -124,14 +124,14 @@
 
                     <div class="row mb-3">
                         <div class="col-lg-12">
-                            <h4 class="d-flex">Cidade de Nascimento</h4>
+                            <label class="form-label">Cidade de Nascimento</label>
                             <location-select v-model="value.hometown_id"></location-select>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-lg-12">
-                            <h4 class="d-flex">Cidade de Residência</h4>
+                            <label class="form-label">Cidade de Residência</label>
                             <location-select v-model="value.current_city_id"></location-select>
                         </div>
                     </div>            
@@ -142,26 +142,26 @@
         </div>
         <div class="card mb-3">
             <div class="card-body">
-                <h3 class="card-title d-flex">Dados Antropométricos</h3>
+                <h3 class="card-title">Dados Antropométricos</h3>
                     
                     <div class="row mb-3">
                         <div class="col-lg-6">
                             <div class="pt-2">
                                 <label class="form-check form-switch">
                                     <input class="form-check-input" v-model="value.protruding_ear" name="is_active" type="checkbox">
-                                    <span class="form-check-label strong d-flex">Orelha Saliente</span>
+                                    <span class="form-check-label  d-flex">Orelha Saliente</span>
                                 </label>
                             </div>
                             <div class="pt-2">
                                 <label class="form-check form-switch">
                                     <input class="form-check-input" v-model="value.contact_lens" name="is_active" type="checkbox">
-                                    <span class="form-check-label strong d-flex">Lente de Contato</span>
+                                    <span class="form-check-label  d-flex">Lente de Contato</span>
                                 </label>
                             </div>
                             <div class="pt-2">
                                 <label class="form-check form-switch">
                                     <input class="form-check-input" v-model="value.unnatural_hair_color" name="is_active" type="checkbox">
-                                    <span class="form-check-label strong d-flex">Cabelo Pintado/Descolorido</span>
+                                    <span class="form-check-label  d-flex">Cabelo Pintado/Descolorido</span>
                                 </label>
                             </div>
                         </div>
@@ -169,19 +169,19 @@
                             <div class="pt-2">
                                 <label class="form-check form-switch">
                                     <input class="form-check-input" v-model="value.unattached_earlobes" name="is_active" type="checkbox">
-                                    <span class="form-check-label strong d-flex">Lóbulo da Orelha Solto</span>
+                                    <span class="form-check-label  d-flex">Lóbulo da Orelha Solto</span>
                                 </label>
                             </div>
                             <div class="pt-2">
                                 <label class="form-check form-switch">
                                     <input class="form-check-input" v-model="value.tanned_skin" name="is_active" type="checkbox">
-                                    <span class="form-check-label strong d-flex">Está bem Bronzeado</span>
+                                    <span class="form-check-label  d-flex">Está bem Bronzeado</span>
                                 </label>
                             </div>
                             <div class="pt-2">
                                 <label class="form-check form-switch">
                                     <input class="form-check-input" v-model="value.unnatural_hair_type" name="is_active" type="checkbox">
-                                    <span class="form-check-label strong d-flex">Cabelo Alisado/Encrespado</span>
+                                    <span class="form-check-label  d-flex">Cabelo Alisado/Encrespado</span>
                                 </label>
                             </div>
                         </div>
@@ -189,21 +189,21 @@
 
                     <div class="row mb-3">
                         <div class="col-lg-3">
-                            <label class="form-label d-flex">Altura</label>
+                            <label class="form-label ">Altura</label>
                             <input type="number" v-model="value.height" min="0" name="height" class="form-control" placeholder="Ex: 180...">    
                         </div>
                         <div class="col-lg-3">
-                            <label class="form-label d-flex">Peso</label>
+                            <label class="form-label ">Peso</label>
                             <input type="number" v-model="value.weight" name="weight" class="form-control" min="0.0" step="0.1" placeholder="Ex: 78.3...">
                         
                         </div>
                         <div class="col-lg-3">
-                            <label class="form-label d-flex">Tamanho do Calçado</label>
+                            <label class="form-label ">Tamanho do Calçado</label>
                             <input type="number" v-model="value.shoe_size" name="shoe_size" min="0" class="form-control" placeholder="Ex: 41...">
                         </div>
 
                         <div class="col-lg-3">
-                            <label class="form-label d-flex">Destro/Canhoto:</label>
+                            <label class="form-label ">Destro/Canhoto:</label>
                             <select class="form-select" v-model="value.right_handed">
                                 <option :value="true" selected>Destro</option>
                                 <option :value="false">Canhoto</option>
@@ -214,11 +214,11 @@
         </div>
         <div class="card mb-3">
             <div class="card-body">
-                <h3 class="card-title d-flex">Dados Biológicos</h3>
+                <h3 class="card-title">Dados Biológicos</h3>
 
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label class="form-label d-flex">Cor do Olho</label>
+                        <label class="form-label ">Cor do Olho</label>
 
                         <select class="form-select" v-model="value.eye_color_id">
                             <option :value="0" disabled selected>Selecione a cor do olho</option>
@@ -231,7 +231,7 @@
                 <div class="row mb-3">
 
                     <div class="col-lg-6">
-                        <label class="form-label d-flex">Cor da Pele</label>
+                        <label class="form-label ">Cor da Pele</label>
                         <select class="form-select" v-model="value.skin_color_id">
                             <option :value="0" disabled selected>Selecione a cor da pele</option>
                             <option v-for="skin_color in skin_colors" :key="skin_color.id" :value="skin_color.id">{{skin_color.title}}</option>
@@ -242,7 +242,7 @@
                 <div class="row mb-3">
 
                     <div class="col-lg-6">
-                        <label class="form-label d-flex">Cor do Cabelo</label>
+                        <label class="form-label ">Cor do Cabelo</label>
                         <select class="form-select" v-model="value.hair_color_id">
                             <option :value="0" disabled selected>Selecione a cor do cabelo</option>
                             <option v-for="hair_color in hair_colors" :key="hair_color.id" :value="hair_color.id">{{hair_color.title}}</option>
@@ -253,7 +253,7 @@
 
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label class="form-label d-flex">Tipo do Cabelo</label>
+                        <label class="form-label ">Tipo do Cabelo</label>
                         <select class="form-select" v-model="value.hair_type_id">
                             <option :value="0" disabled selected>Selecione o tipo do cabelo</option>
                             <option v-for="hair_type in hair_types" :key="hair_type.id" :value="hair_type.id">{{hair_type.title}}</option>
@@ -263,7 +263,7 @@
 
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label class="form-label d-flex">Quantidade de Cabelo</label>
+                        <label class="form-label ">Quantidade de Cabelo</label>
                         <select class="form-select" v-model="value.hairs">
                             <option :value="0" disabled selected>Selecione a quantidade de cabelo</option>
                             <option :value="1">Muito</option>
@@ -276,7 +276,7 @@
 
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <label class="form-label d-flex">Cabelo Observado</label>
+                        <label class="form-label ">Cabelo Observado</label>
                         <select class="form-select" v-model="value.hair_obs">
                             <option value="" disabled selected>Selecione o cabelo</option>
                             <option :value="'Calvície'">Calvície</option>
@@ -288,7 +288,7 @@
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <label class="form-label d-flex">Quantidade de Pelos</label>
+                        <label class="form-label ">Quantidade de Pelos</label>
                         <select class="form-select" v-model="value.body_hairs">
                             <option :value="0" disabled selected>Selecione a quantidade de Pelos</option>
                             <option :value="1">Muito</option>
@@ -303,7 +303,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title d-flex">Status na Plataforma</h3>
+                <h3 class="card-title">Status na Plataforma</h3>
             
                 <div class="row justify-content-start">
 
@@ -311,7 +311,7 @@
                         <div class="pt-2">
                             <label class="form-check form-switch">
                                 <input class="form-check-input" v-model="value.is_superuser" name="is_superuser" type="checkbox">
-                                <span class="form-check-label strong">Super Usuário</span>
+                                <span class="form-check-label ">Super Usuário</span>
                             </label>
                         </div>
                     </div>
@@ -320,7 +320,7 @@
                         <div class="pt-2">
                             <label class="form-check form-switch">
                                 <input class="form-check-input" v-model="value.is_active" name="is_active" type="checkbox">
-                                <span class="form-check-label strong">Usuário Ativo</span>
+                                <span class="form-check-label ">Usuário Ativo</span>
                             </label>
                         </div>
                     </div>

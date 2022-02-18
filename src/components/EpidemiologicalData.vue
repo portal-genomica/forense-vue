@@ -4,19 +4,19 @@
         <div class="row mb-3">
             <div class="col-lg-5">
                 <div class="mb-3">
-                    <label class="form-label d-flex">Sexo</label>
+                    <label class="form-label">Sexo</label>
                     <input type="text" class="form-control form-control-flush" :value="sex" disabled>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-flex">Origem</label>
+                    <label class="form-label">Origem</label>
                     <input type="text" class="form-control form-control-flush" :value="origin" disabled>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-flex">Cidade de Residência</label>
+                    <label class="form-label">Cidade de Residência</label>
                     <input type="text" class="form-control form-control-flush" :value="current_city" disabled>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-flex">Cidade Natal</label>
+                    <label class="form-label">Cidade Natal</label>
                     <input type="text" class="form-control form-control-flush" :value="hometown" disabled>
                 </div>
             </div>

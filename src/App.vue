@@ -9,6 +9,7 @@
   height: 100%;
 }
 
+
 #nav {
   padding: 30px;
 }
@@ -140,7 +141,7 @@
 
 
 <template>
-  <div class="h-100">
+  <div class="wrapper">
     <router-view/>
   </div>
 </template>
