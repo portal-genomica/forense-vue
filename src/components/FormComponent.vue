@@ -41,7 +41,7 @@
             <div class="card-body">
                 <h3 class="card-title d-flex">Dados Pessoais do Participante</h3>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <div class="mb-3">
                             <label class="form-label d-flex">Nome</label>
                             <input type="text" v-model="value.name" name="name" class="form-control" placeholder="Nome">
@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         <label class="form-label d-flex">Repita a Senha</label>
                         <input v-if="mode === EDIT_USER" type="password" v-model="value.password_confirmation" name="password" class="form-control" placeholder="Senha" disabled>
                         <input v-if="mode === CREATE_USER" type="password" v-model="value.password_confirmation" name="password" class="form-control" placeholder="Senha">
@@ -274,6 +274,18 @@
                 </div>
 
 
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label class="form-label d-flex">Cabelo Observado</label>
+                        <select class="form-select" v-model="value.hair_obs">
+                            <option value="" disabled selected>Selecione o cabelo</option>
+                            <option :value="'Calvície'">Calvície</option>
+                            <option :value="'Grisalho'">Grisalho</option>
+                            <option :value="'Branco'">Branco</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-6">
                         <label class="form-label d-flex">Quantidade de Pelos</label>
@@ -285,6 +297,7 @@
                         </select>
                     </div>
                 </div>
+
             </div>
         </div>
 

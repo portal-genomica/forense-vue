@@ -284,9 +284,8 @@ import FormComponent from '../components/FormComponent.vue';
                 } else {    
                     this.targetUser = Object.assign(
                         this.newUser(u), 
-                        this.newPhenotype(u)
+                        this.createUser()
                     )
-                    console.log(this.targetUser)
                 }
 
             },
@@ -327,6 +326,7 @@ import FormComponent from '../components/FormComponent.vue';
                     unnatural_hair_color:   user.unnatural_hair_color,
                     unnatural_hair_type:    user.unnatural_hair_type,
                     unattached_earlobes:    user.unattached_earlobes,
+                    hair_obs:           user.hair_obs
                 } 
             },
             // create object based on /phenotypes/ response
@@ -358,7 +358,8 @@ import FormComponent from '../components/FormComponent.vue';
                     collected_at:       user.collected_at,
                     unnatural_hair_color:   user.unnatural_hair_color,
                     unnatural_hair_type:    user.unnatural_hair_type,
-                    unattached_earlobes:    user.unattached_earlobes
+                    unattached_earlobes:    user.unattached_earlobes,
+                    hair_obs:           user.hair_obs
                 }
             },
             createUser: function(){
@@ -384,7 +385,8 @@ import FormComponent from '../components/FormComponent.vue';
                     tanned_skin: false,
                     collected_at: "",
                     hairs: 1,
-                    body_hairs: 1
+                    body_hairs: 1,
+                    hair_obs:     '',
                 }
             },
             saveUser: async function(){
