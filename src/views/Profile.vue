@@ -102,7 +102,7 @@
 
                 <div class="tab-pane card-body" id="tabs-epidemiologico">
                     <div class="col-8">
-                        <epidemiological-data :data="user"></epidemiological-data>
+                        <epidemiological-data :data="phenotypes"></epidemiological-data>
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@
 
             if( response.ok ){
                 this.phenotypes = await response.json()
-            } 
+            }
             
         },
         computed: {

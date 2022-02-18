@@ -1,12 +1,27 @@
 <template>
     <div class="col-12" v-if="data">
-        <h2>Dados Epidemiológicos</h2>
+        <h2 class="d-flex">Dados Biológicos</h2>
         <div class="row mb-3">
-            <div class="col-auto">
-                <span class="form-check-label d-flex">Cor do Olho: {{eye_color_name}}</span>
-                <span class="form-check-label d-flex">Cor da Pele: {{skin_color_name}}</span>
-                <span class="form-check-label d-flex">Cor do Cabelo: {{hair_color_name}}</span>
-                <span class="form-check-label d-flex">Tipo de Cabelo: {{hair_type_name}}</span>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label class="form-label d-flex">Tipo de Cabelo</label>
+                    <input type="text" class="form-control form-control-flush" :value="hair_type_name" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-flex">Cor do Cabelo</label>
+                    <input type="text" class="form-control form-control-flush" :value="hair_color_name" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-flex">Cor da Pele</label>
+                    <input type="text" class="form-control form-control-flush" :value="skin_color_name" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-flex">Cor do Olho</label>
+                    <input type="text" class="form-control form-control-flush" :value="eye_color_name" disabled>
+                </div>
             </div>
         </div>
     </div>
