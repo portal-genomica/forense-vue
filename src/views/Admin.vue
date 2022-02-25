@@ -266,7 +266,11 @@ import FormComponent from '../components/FormComponent.vue';
             },
             queryGet: function(){ 
                 if(this.query == '') return ''
-                else return '&name='+this.query   
+                else if(this.searchType == 0){
+                    return '&name='+this.query
+                } else if(this.searchType == 1){
+                    return '&sample='+this.query
+                }   
             
             },
             get_initials: function(name){

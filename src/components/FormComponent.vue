@@ -291,9 +291,9 @@
                         <label class="form-label ">Quantidade de Pelos</label>
                         <select class="form-select" v-model="value.body_hairs">
                             <option :value="0" disabled selected>Selecione a quantidade de Pelos</option>
-                            <option :value="1">Muito</option>
-                            <option :value="2">Médio</option>
-                            <option :value="3">Pouco</option>
+                                <option :value="1">Muito</option>
+                                <option :value="2">Médio</option>
+                                <option :value="3">Pouco</option>
                         </select>
                     </div>
                 </div>
