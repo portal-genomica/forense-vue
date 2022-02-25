@@ -286,6 +286,7 @@ import FormComponent from '../components/FormComponent.vue';
                     let phenotypesData = await responsePhenotypes.json()
                     this.targetUser = this.editPhenotype(Object.assign(phenotypesData, u))
 
+
                 } else {    
                     this.targetUser = Object.assign(
                         this.newUser(u), 
@@ -336,6 +337,14 @@ import FormComponent from '../components/FormComponent.vue';
             },
             // create object based on /phenotypes/ response
             editPhenotype: function(user){
+                
+                if(!user.hometown) user.hometown = {id: 0}
+                if(!user.current_city) user.current_city = {id: 0}
+                if(!user.eye_color) user.eye_color = {id: 0}
+                if(!user.hair_color) user.hair_color = {id: 0}
+                if(!user.skin_color) user.skin_color = {id: 0}
+                if(!user.hair_type) user.hair_type = {id: 0}
+
                 return {
                     user_id:            user.user_id,
                     email:              user.user.email,
@@ -344,12 +353,6 @@ import FormComponent from '../components/FormComponent.vue';
                     date_of_birth:      user.date_of_birth,
                     is_active:          user.is_active,
                     is_superuser:       user.is_superuser,
-                    hometown_id:        user.hometown.id,
-                    current_city_id:    user.current_city.id,
-                    eye_color_id:       user.eye_color.id,
-                    hair_color_id:      user.hair_color.id,
-                    skin_color_id:      user.skin_color.id,
-                    hair_type_id:       user.hair_type.id,
                     sex:                user.sex,
                     height:             user.height,
                     weight:             user.weight,
@@ -364,7 +367,13 @@ import FormComponent from '../components/FormComponent.vue';
                     unnatural_hair_color:   user.unnatural_hair_color,
                     unnatural_hair_type:    user.unnatural_hair_type,
                     unattached_earlobes:    user.unattached_earlobes,
-                    hair_obs:           user.hair_obs
+                    hair_obs:           user.hair_obs,
+                    hometown_id:        user.hometown.id,
+                    current_city_id:    user.current_city.id,
+                    eye_color_id:       user.eye_color.id,
+                    hair_color_id:      user.hair_color.id,
+                    skin_color_id:      user.skin_color.id,
+                    hair_type_id:       user.hair_type.id
                 }
             },
             createUser: function(){
@@ -423,7 +432,6 @@ import FormComponent from '../components/FormComponent.vue';
 
                     let new_user = users.data[0]
 
-                    console.log(new_user)
 
                     this.targetUser.id = new_user.id
                     this.targetUser.user_id = new_user.id
@@ -446,7 +454,7 @@ import FormComponent from '../components/FormComponent.vue';
             savePhenotype: async function(new_user){
 
                 let responsePhenotypes = await this.$root.postData('phenotypes/', this.newPhenotype(new_user))
-                console.log(responsePhenotypes)
+                
                 if(responsePhenotypes.ok){
 
                     this.sendAlert({

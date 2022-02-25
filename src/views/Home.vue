@@ -48,8 +48,6 @@ export default {
       const categoriesResponse = await this.$root.getRequest('categories/')
       const categoriesJson = await categoriesResponse.json()
 
-      let test = (await this.$root.getRequest('views/'))
-      console.log(await test.json())
       this.categories = categoriesJson.data
 
     }

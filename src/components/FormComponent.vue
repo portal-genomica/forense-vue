@@ -359,6 +359,7 @@ import LocationSelect from './LocationSelect.vue'
         computed:{
             value: {
                 get(){
+                    console.log(this.modelValue)
                     return this.modelValue
                 },
                 set(value){

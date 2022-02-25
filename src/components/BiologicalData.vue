@@ -62,28 +62,28 @@
         },
         computed: {
             eye_color_name: function(){
-                if(this.eye_color.title){
+                if(this.eye_color){
                     return this.eye_color.title
                 } else {
                     return "Não há dados para cor do olho."
                 }
             },  
             hair_color_name: function(){
-                if(this.hair_color.title){
+                if(this.hair_color){
                     return this.hair_color.title
                 } else {
                     return "Não há dados para cor do cabelo."
                 }
             },  
             skin_color_name: function(){
-                if(this.skin_color.title){
+                if(this.skin_color){
                     return this.skin_color.title
                 } else {
                     return "Não há dados para cor da pele."
                 }
             },  
             hair_type_name: function(){
-                if(this.hair_type.title){
+                if(this.hair_type){
                     return this.hair_type.title
                 } else {
                     return "Não há dados para tipo do cabelo."
