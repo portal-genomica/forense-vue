@@ -284,6 +284,7 @@ import FormComponent from '../components/FormComponent.vue';
                 if(responsePhenotypes.ok){
 
                     let phenotypesData = await responsePhenotypes.json()
+                    
                     this.targetUser = this.editPhenotype(Object.assign(phenotypesData, u))
 
 
@@ -337,7 +338,7 @@ import FormComponent from '../components/FormComponent.vue';
             },
             // create object based on /phenotypes/ response
             editPhenotype: function(user){
-                
+
                 if(!user.hometown) user.hometown = {id: 0}
                 if(!user.current_city) user.current_city = {id: 0}
                 if(!user.eye_color) user.eye_color = {id: 0}
@@ -413,8 +414,9 @@ import FormComponent from '../components/FormComponent.vue';
                     let responseCreateUser = await this.$root.postData('users/', this.newUser(this.targetUser))
 
                     if(responseCreateUser.ok){
+            
                         let new_user = await responseCreateUser.json()
-                        console.log(new_user)
+                        
                         this.targetUser.user_id = new_user.id
                         
                         await this.savePhenotype(this.targetUser)
@@ -443,8 +445,7 @@ import FormComponent from '../components/FormComponent.vue';
                         is_superuser:   this.targetUser.is_superuser  
                     })
 
-                    if(updateUser.ok) console.log(await updateUser.json())
-
+                    if(updateUser.ok) console.log('user updated')
                     await this.savePhenotype(this.targetUser)
 
                 }
@@ -477,7 +478,12 @@ import FormComponent from '../components/FormComponent.vue';
             saveEdit: async function(){
                 // check if user has registered phenotypes
 
-                let responseUserUpdate = await this.$root.patchRequest('users/update/'+this.targetUser.user_id, this.targetUser)
+                let responseUserUpdate = await this.$root.patchRequest(`users/update/${this.targetUser.user_id}`, {
+                        name:           this.targetUser.name,
+                        date_of_birth:  this.targetUser.date_of_birth,
+                        is_active:      this.targetUser.is_active,
+                        is_superuser:   this.targetUser.is_superuser  
+                })
 
                 let response = await this.$root.getRequest(`phenotypes/${this.targetUser.user_id}`)
 
@@ -502,6 +508,7 @@ import FormComponent from '../components/FormComponent.vue';
                         })
                     }
                     if(responseUserUpdate.ok){
+                        console.log(await responseUserUpdate.json())
                         console.log('edit user ok;')
                     } else {
                         console.log('Erro edit user;')

@@ -78,19 +78,30 @@
         },
         watch: {
             selected_state: async function(uf, oldUf){
+                if(uf != ''){
 
-                let fetchUrl = 'locations?limit=900&state='+uf
+                    let fetchUrl = 'locations?limit=900&state='+uf
 
-                let cities_request = await this.$root.getRequest(fetchUrl)
+                    let cities_request = await this.$root.getRequest(fetchUrl)
 
-                let cities = await cities_request.json()
+                    let cities = await cities_request.json()
 
-                this.cities = cities.data
-                
-                // reset value
-                if(oldUf != ''){
-                    this.selected_city = 0
+                    this.cities = cities.data
+                    
+                    // reset value
+                    if(oldUf != ''){
+                        this.selected_city = 0
+                    } 
+
                 }
+
+                // if(this.cities.filter(d => {
+                //     if(this.selected_city ==  d.city_id){
+                //         return d
+                //     }
+                // }).length == 0){
+
+                // }
             },
             selected_city: async function(city){
                 if(this.selected_state == '' && this.selected_city != 0){
@@ -103,7 +114,26 @@
                             return d.value
                         }
                     })[0].value
+                } else {
+                    this.selected_state = ''
+                    
+                    if(this.cities.filter(d => {
+                        if(this.selected_city ==  d.city_id){
+                            return d
+                        }
+                    }).length == 0){
+                        let responseLocations = await this.$root.getRequest(`locations/${city}`)
+
+                        let dataCity = await responseLocations.json()
+                        
+                        this.selected_state = this.estados.filter(d => {
+                            if(d.name == dataCity.state) {
+                                return d.value
+                            }
+                        })[0].value
+                    }
                 }
+
 
             },
         }

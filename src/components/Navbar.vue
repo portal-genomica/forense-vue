@@ -70,11 +70,6 @@ export default {
         logout:  function(){
             this.$root.logout()
         }
-    },
-    watch: {
-        user: function(user){
-            console.log(user)
-        }
     }
 }
 </script>

@@ -66,7 +66,6 @@
         },
         watch: {
             data: function(value){
-                console.log(value)
                 this.user_sex       = value.sex
                 this.user_origin    = value.origin
                 this.user_hometown       = value.hometown

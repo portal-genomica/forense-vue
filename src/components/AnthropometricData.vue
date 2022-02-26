@@ -147,7 +147,6 @@
         },
         watch: {
             data: function(value){
-                console.log(value)
                 this.user_data = value
                 
                 // this.height         =   value.height

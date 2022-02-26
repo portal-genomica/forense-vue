@@ -126,6 +126,7 @@
                         <div class="col-lg-12">
                             <label class="form-label">Cidade de Nascimento</label>
                             <location-select v-model="value.hometown_id"></location-select>
+
                         </div>
                     </div>
 
@@ -359,7 +360,6 @@ import LocationSelect from './LocationSelect.vue'
         computed:{
             value: {
                 get(){
-                    console.log(this.modelValue)
                     return this.modelValue
                 },
                 set(value){
@@ -391,14 +391,6 @@ import LocationSelect from './LocationSelect.vue'
             //         crespo: null
             // })
         }, 
-        watch: {
-            value: {
-                handler: function(value){
-                    console.log(value.sex)
-                },
-                deep: true
-            }
-        },
         methods: {
             getEyeColors: async function(){
                 let request = await this.$root.getRequest('eye_colors/')
