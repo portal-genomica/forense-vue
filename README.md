@@ -3,6 +3,7 @@
 ```
 node v16.2
 ```
+You can use `nvm install 16` to install the correct version for the project
 
 ## Project setup
 ```
