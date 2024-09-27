@@ -1,4 +1,8 @@
 # forense
+## Requirements
+```
+node v16.2
+```
 
 ## Project setup
 ```
